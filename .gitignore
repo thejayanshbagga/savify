@@ -31,3 +31,10 @@ out/
 
 # 🔴 VERCEL CONFIG (Auto-generated)
 .vercel/
+
+# 🔴 Additional Unnecessary Files
+coverage/
+.nyc_output/
+.parcel-cache/
+.nuxt/
+.serverless/
