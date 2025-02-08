@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Savify</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #4A90E2;
+            font-family: 'Poppins', sans-serif;
+            color: #243B55;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #FFFFFF;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .login-container h1 {
+            text-align: center;
+            color: #4A90E2;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .login-container label {
+            color: #243B55;
+            font-weight: 600;
+        }
+
+        .login-container .form-control {
+            border-radius: 5px;
+        }
+
+        .login-container .btn-primary {
+            background-color: #4A90E2;
+            border: none;
+            width: 100%;
+            font-weight: 600;
+            padding: 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .login-container .btn-primary:hover {
+            background-color: #357ABD;
+        }
+
+        .google-login {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .google-login button {
+            background-color: #FFFFFF;
+            border: 1px solid #4A90E2;
+            color: #4A90E2;
+            font-weight: 600;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .google-login button:hover {
+            background-color: #4A90E2;
+            color: #FFFFFF;
+        }
+
+        /* Error & Success Messages */
+        #loginMessage {
+            font-weight: bold;
+            text-align: center;
+            display: none;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+        }
+
+        .error {
+            background-color: #FFEBEB;
+            color: #D32F2F;
+        }
+
+        .success {
+            background-color: #E6F4EA;
+            color: #2E7D32;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h1>Savify</h1>
+        <p id="loginMessage"></p> <!-- Inline Error/Success Message -->
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" class="form-control" placeholder="Enter your email" required>
+            </div>        
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Enter your password" required>
+            </div>
+            <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" id="keepLoggedIn">
+                <label class="form-check-label" for="keepLoggedIn">Keep me logged in</label>
+            </div>
+            <button type="submit" class="btn btn-primary" id="loginButton">Log In</button>
+        </form>
+
+        <div class="google-login">
+            <button>Continue with Google</button>
+        </div>
+
+        <p class="text-center" style="margin-top: 20px;">
+            New to Savify? <a href="signup.html" style="color: #4A90E2; font-weight: 600;">Sign up today.</a>
+        </p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value.trim();
+            const loginMessage = document.getElementById('loginMessage');
+            const loginButton = document.getElementById('loginButton');
+
+            // Reset message before new request
+            loginMessage.style.display = 'none';
+            loginMessage.textContent = '';
+
+            if (!email || !password) {
+                showMessage("Please enter both email and password.", 'error');
+                return;
+            }
+
+            try {
+                loginButton.disabled = true; // Prevent multiple submissions
+
+                const response = await fetch('http://localhost:5000/api/auth/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showMessage("Login successful! Redirecting...", 'success');
+
+                    // Store JWT token in localStorage
+                    localStorage.setItem('authToken', data.token);
+
+                    // Redirect after 1.5s
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                } else {
+                    showMessage(data.message || "Invalid login credentials.", 'error');
+                }
+            } catch (error) {
+                showMessage("Failed to connect to the server. Please try again later.", 'error');
+            } finally {
+                loginButton.disabled = false; // Re-enable button
+            }
+        });
+
+        function showMessage(message, type) {
+            const loginMessage = document.getElementById('loginMessage');
+            loginMessage.textContent = message;
+            loginMessage.className = type;
+            loginMessage.style.display = 'block';
+        }
+
+        // Redirect logged-in users to index.html automatically
+        window.onload = () => {
+            if (localStorage.getItem('authToken')) {
+                window.location.href = 'index.html';
+            }
+        };
+    </script>
+</body>
+</html>
