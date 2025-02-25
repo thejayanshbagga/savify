@@ -1,18 +1,20 @@
-require("dotenv").config();
+// ✅ Load environment variables only in non-production environments
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+  }  
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const path = require("path");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
-const cookieSession = require("cookie-session");
+const session = require("express-session"); 
+
 const googleAuthRoutes = require("./routes/googleAuth");
 const authRoutes = require("./routes/auth");
 const emailRoutes = require("./routes/email");
 
 const app = express();
-app.use(express.json());
-app.use(cors());
 
 // ✅ Environment-based redirect URI
 const callbackURL =
@@ -20,14 +22,18 @@ const callbackURL =
     ? process.env.REDIRECT_URI_PROD
     : process.env.REDIRECT_URI_LOCAL;
 
-// ✅ Cookie session setup
-app.use(
-  cookieSession({
-    name: "savify-session",
-    keys: ["savifySecret"], // Use process.env.COOKIE_KEY in production
-    maxAge: 24 * 60 * 60 * 1000, // 1 day
-  })
-);
+    app.use(
+        session({
+          secret: process.env.SESSION_SECRET || "savifySecret", // Use an environment variable in production
+          resave: false,
+          saveUninitialized: false,
+          cookie: {
+            maxAge: 24 * 60 * 60 * 1000, // 1 day
+            secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+            sameSite: "lax",
+          },
+        })
+      );
 
 // ✅ Passport setup
 app.use(passport.initialize());
@@ -45,37 +51,51 @@ passport.use(
       callbackURL: callbackURL,
     },
     (accessToken, refreshToken, profile, done) => {
-      console.log("🔑 Google profile:", profile); // Debug
+      console.log("🔑 Google profile:", profile);
       return done(null, profile);
     }
   )
 );
 
+// ✅ MongoDB connection
+const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/savify";
+mongoose
+  .connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: "savify",
+  })
+  .then(() => console.log("✅ MongoDB Connected Successfully"))
+  .catch((err) => console.error("❌ MongoDB Connection Error:", err));
+
 // ✅ Serve static frontend files from "public" directory
 app.use(express.static(path.join(__dirname, "../public")));
 
-// ✅ Register API & OAuth routes
+// ✅ Register routes BEFORE catch-all
 app.use("/api/auth", authRoutes);
 app.use("/api", emailRoutes);
-app.use("/auth", googleAuthRoutes);
+app.use("/auth", googleAuthRoutes); // Google OAuth routes
 
-// ✅ Catch-all route (must be last)
+// ✅ Catch-all route (for SPA support & fallback)
 app.get("*", (req, res) => {
   if (req.path.startsWith("/api") || req.path.startsWith("/auth")) {
-    res.status(404).json({ message: "API Route not found" });
-  } else {
-    res.sendFile(path.join(__dirname, "../public", "index.html"));
+    return res.status(404).json({ message: "API Route not found" });
   }
+  res.sendFile(path.join(__dirname, "../public", "index.html"));
 });
 
-// ✅ Debugging: Print all registered routes
-app._router.stack.forEach((r) => {
-  if (r.route) {
-    console.log(`✅ Registered Route: ${Object.keys(r.route.methods)[0].toUpperCase()} ${r.route.path}`);
-  }
-});
+// ✅ Log registered routes for debugging
+console.log("\n✅ Registered Routes:");
+app._router.stack
+  .filter((r) => r.route)
+  .forEach((r) => {
+    const methods = Object.keys(r.route.methods)
+      .map((m) => m.toUpperCase())
+      .join(", ");
+    console.log(`➡️  ${methods} ${r.route.path}`);
+  });
 
-// ✅ Start Server
+// ✅ Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
