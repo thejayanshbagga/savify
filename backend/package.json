@@ -4,7 +4,7 @@
     "description": "Backend for Savify",
     "main": "server.js",
     "scripts": {
-        "start": "node backend/server.js"
+        "start": "node server.js"
     },
     "dependencies": {
         "bcrypt": "^5.1.1",
