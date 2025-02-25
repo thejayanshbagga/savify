@@ -539,6 +539,24 @@
     </section>
 
     <script>
+        const params = new URLSearchParams(window.location.search);
+        const token = params.get('token');
+      
+        if (token) {
+          // ✅ Save token to localStorage
+          localStorage.setItem('authToken', token);
+      
+          // ✅ Clean URL without reloading the page
+          const newUrl = window.location.origin + window.location.pathname;
+          window.history.replaceState({}, document.title, newUrl);
+      
+          console.log("✅ Google login successful. Token saved.");
+        } else if (!localStorage.getItem('authToken')) {
+          console.log("⚠️ No token found. User not logged in.");
+        }
+      </script>      
+
+    <script>
         const content = {
             efficiency: {
                 title: "Streamline your financial management with Savify’s AI-driven tools.",
