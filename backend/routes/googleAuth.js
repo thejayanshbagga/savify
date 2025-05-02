@@ -1,22 +1,27 @@
 const express = require("express");
 const passport = require("passport");
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
 
 const router = express.Router();
 
+// ✅ Initiate Google OAuth login
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
+// ✅ Google OAuth callback
 router.get(
   "/google/callback",
   passport.authenticate("google", { failureRedirect: "/login.html" }),
   (req, res) => {
-    const user = req.user;
-    const token = jwt.sign({ email: user._json.email }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
-    // ✅ Redirect to index.html with token
-    res.redirect(`/index.html?token=${token}`);
+    // Redirect to the homepage or dashboard after successful login
+    res.redirect("/index.html");
   }
 );
+
+// ✅ Logout route
+router.get("/logout", (req, res) => {
+  req.logout((err) => {
+    if (err) console.error("❌ Logout Error:", err);
+    res.redirect("/login.html"); // Redirect after logout
+  });
+});
 
 module.exports = router;
