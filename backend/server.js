@@ -71,6 +71,11 @@ mongoose
 // ✅ Serve static frontend files from "public" directory
 app.use(express.static(path.join(__dirname, "../public")));
 
+app.use(cors({
+  origin: 'https://savify.ca',
+  credentials: true
+}));
+
 // ✅ Register routes BEFORE catch-all
 app.use("/api/auth", authRoutes);
 app.use("/api", emailRoutes);
