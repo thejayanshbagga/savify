@@ -15,6 +15,8 @@ const authRoutes = require("./routes/auth");
 const emailRoutes = require("./routes/email");
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 // ✅ Environment-based redirect URI
 const callbackURL =
