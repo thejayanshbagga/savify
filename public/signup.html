@@ -11,126 +11,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 <link rel="manifest" href="/site.webmanifest" />
 <meta name="apple-mobile-web-app-title" content="Savify" />
-    <style>
-        body {
-            background-color: #EAF4FC;
-            color: #243B55;
-            font-family: 'Poppins', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .register-container {
-            background-color: #FFFFFF;
-            padding: 40px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: left;
-            width: 400px;
-        }
-
-        .register-container h1 {
-            color: #4A90E2;
-            font-weight: 600;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            color: #243B55;
-            font-weight: 600;
-            font-size: 1rem;
-        }
-
-        .form-control {
-            border-radius: 5px;
-            width: 100%;
-            padding: 10px;
-            font-size: 1rem;
-            margin-top: 5px;
-        }
-
-        .btn-primary {
-            background-color: #4A90E2;
-            border: none;
-            width: 100%;
-            padding: 10px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #FFFFFF;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background-color: #243B55;
-        }
-
-        .steps-container {
-            display: flex;
-            flex-direction: column;
-            align-items: left;
-        }
-
-        .step {
-            display: none;
-        }
-
-        .step.active {
-            display: block;
-        }
-
-        .navigation-buttons {
-            margin-top: 20px;
-        }
-
-        .navigation-buttons button {
-            background-color: #4A90E2;
-            color: #FFFFFF;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: 600;
-            margin: 0 10px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .navigation-buttons button:hover {
-            background-color: #243B55;
-        }
-
-        /* Error & Success Messages */
-        #signupMessage {
-            font-weight: bold;
-            text-align: center;
-            display: none;
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 15px;
-        }
-
-        .error {
-            background-color: #FFEBEB;
-            color: #D32F2F;
-        }
-
-        .success {
-            background-color: #E6F4EA;
-            color: #2E7D32;
-        }
-
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="auth-page">
     <div class="register-container">
         <h1 id="passwordHeading">Start Building Your Wealth Today – Join Savify Now!</h1>
         
@@ -200,21 +83,22 @@
             try {
                 submitButton.disabled = true;
 
-                const response = await fetch('https://savify-n2pd.onrender.com/api/auth/signup', { //live signup updated 
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ email, password }),
-                });
+                // const response = await fetch('https://savify-n2pd.onrender.com/api/auth/signup', { //live signup updated 
+                //     method: 'POST',
+                //     headers: { 'Content-Type': 'application/json' },
+                //     body: JSON.stringify({ email, password }),
+                // });
+
+                alert("✅ Registered successfully!");
+                window.location.href = "index.html";
+                return;
+
 
                 const data = await response.json();
 
                 if (response.ok) {
                     showMessage(`Registration successful! Redirecting...`, 'success');
-                    
-                    // Redirect after 1.5 seconds
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 1500);
+                    window.location.href = 'index.html';
                 } else {
                     showMessage(data.message || 'Email already registered', 'error');
                 }

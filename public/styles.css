@@ -1,0 +1,792 @@
+/* ======================
+   Index Page
+   ====================== */
+
+:root {
+  --primary: #4A90E2;
+  --dark: #243B55;
+  --light-bg: #FAF3E0;
+  --gray-bg: #F2F4F8;
+  --text-gray: #4A4A4A;
+}
+
+body,
+body * {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  background-color: var(--light-bg);
+  color: var(--dark);
+  font-family: 'Poppins', sans-serif;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+html {
+  overflow-x: hidden;
+  max-width: 100%;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background-color: var(--primary);
+  color: white;
+  z-index: 10;
+  position: relative;
+}
+
+.header .logo {
+  font-size: 3rem;
+  font-weight: 900;
+  color: white;
+}
+
+.header a {
+  background-color: white;
+  color: var(--primary);
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-left: 10px;
+}
+
+.header a:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+.hero {
+  height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: url('images/homescreenpng.png') no-repeat center center / cover, linear-gradient(135deg, var(--primary), var(--primary));
+  color: white;
+  text-align: center;
+  position: relative;
+}
+
+.hero h1 {
+  font-size: 3.5rem;
+  font-weight: 700;
+  line-height: 1.2;
+  animation: fadeInText 2s ease-in-out;
+}
+
+@keyframes fadeInText {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.side-scroll-section {
+  display: flex;
+  overflow-x: auto;
+  gap: 40px;
+  padding: 60px 20px;
+  background-color: white;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--gray-bg);
+}
+
+.side-scroll-section::-webkit-scrollbar {
+  height: 8px;
+}
+
+.side-scroll-section::-webkit-scrollbar-track {
+  background: var(--gray-bg);
+}
+
+.side-scroll-section::-webkit-scrollbar-thumb {
+  background-color: var(--primary);
+  border-radius: 10px;
+}
+
+.scroll-block {
+  flex: 0 0 600px;
+  background-color: var(--gray-bg);
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+}
+
+.scroll-block:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.scroll-block .hover-content {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary) var(--gray-bg);
+  z-index: 10;
+}
+
+.scroll-block:hover .hover-content {
+  display: block;
+}
+
+.hover-content h5 {
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+}
+
+footer {
+  background-color: var(--dark);
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+#results canvas {
+  max-height: 250px;
+}
+
+.why-savify {
+  overflow: hidden;
+  background-color: var(--gray-bg);
+  padding: 20px 0;
+  position: relative;
+}
+
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: scrollText 15s linear infinite;
+}
+
+.marquee span {
+  font-size: 4rem;
+  font-weight: 600;
+  color: #D3D3D3;
+  letter-spacing: 10px;
+  white-space: nowrap;
+  padding-right: 20px;
+}
+
+
+.why-savify p {
+  font-size: 4rem;
+  font-weight: 600;
+  color: #D3D3D3;
+  display: inline-block;
+  letter-spacing: 10px;
+}
+
+.why-savify .marquee {
+  display: inline-block;
+  white-space: nowrap;
+  will-change: transform;
+  transition: transform 0.1s linear;
+}
+
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2rem !important;
+    line-height: 1.4;
+    padding: 0 10px;
+  }
+
+  header .d-flex.align-items-center h1 {
+    display: none;
+  }
+
+  .feature-content {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+  }
+
+
+  .text-section,
+  .image-section {
+    padding: 10px 0;
+  }
+
+  .side-scroll-section {
+    display: none;
+  }
+
+  .mobile-feature-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Added by Adit, center align for mobile */
+    gap: 20px;
+    padding: 40px 20px;
+    background-color: white;
+  }
+
+  .mobile-feature-card {
+    background-color: var(--gray-bg);
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    text-align: center;
+    transition: transform 0.2s ease;
+    margin-bottom: 40px;
+    width: 100%; /* Added by Adit, full width for mobile */
+    max-width: 400px;
+  }
+
+  .mobile-feature-card:hover {
+    transform: scale(1.02);
+  }
+
+  .mobile-feature-card h4 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+
+  .mobile-feature-card p {
+    font-size: 0.9rem;
+    color: var(--dark);
+    line-height: 1.4;
+  }
+
+  .mobile-feature-card .detailed-info {
+    display: none;
+    margin-top: 10px;
+    text-align: left;
+    font-size: 0.85rem;
+  }
+
+  .mobile-feature-card.active-card .detailed-info {
+    display: block;
+  }
+
+  .why-savify p { /* Added by Adit */
+    font-size: 1.5rem !important;
+    letter-spacing: 3px;
+  }
+
+  .marquee span { /* Added by Adit */
+    font-size: 1.5rem !important;
+    letter-spacing: 3px;
+  }
+}
+
+/* ======================
+   End of Index Page
+   ====================== */
+
+/* ======================
+   Auth Pages (Login/Signup)
+   ====================== */
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: var(--dark);
+}
+
+.login-container,
+.register-container {
+  background-color: white;
+  padding: 40px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  text-align: left;
+}
+
+.login-container h1,
+.register-container h1 {
+  text-align: center;
+  color: var(--primary);
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 1.5rem;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  color: var(--dark);
+  font-weight: 600;
+  font-size: 1rem;
+}
+
+.form-control {
+  border-radius: 5px;
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  margin-top: 5px;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  border: none;
+  width: 100%;
+  padding: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: var(--dark);
+}
+
+.google-login {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.google-login button {
+  background-color: white;
+  border: 1px solid var(--primary);
+  color: var(--primary);
+  font-weight: 600;
+  padding: 10px;
+  width: 100%;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.google-login button:hover {
+  background-color: var(--primary);
+  color: white;
+}
+
+/* Step-based signup flow */
+.steps-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+
+.step {
+  display: none;
+}
+
+.step.active {
+  display: block;
+}
+
+.navigation-buttons {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.navigation-buttons button {
+  background-color: var(--primary);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.navigation-buttons button:hover {
+  background-color: var(--dark);
+}
+
+/* Form Messages */
+#loginMessage,
+#signupMessage {
+  font-weight: bold;
+  text-align: center;
+  display: none;
+  padding: 10px;
+  border-radius: 5px;
+  margin-top: 15px;
+}
+
+.error {
+  background-color: #FFEBEB;
+  color: #D32F2F;
+}
+
+.success {
+  background-color: #E6F4EA;
+  color: #2E7D32;
+}
+/* ======================
+   End of Auth Pages
+   ====================== */
+
+
+/* ======================
+   Feature Section (Benefits)
+   ====================== */
+
+.feature-section {
+  text-align: center;
+  padding: 40px 20px;
+  background-color: var(--gray-bg);
+}
+
+.feature-section .label {
+  display: inline-block;
+  background-color: var(--primary);
+  color: white;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 5px 15px;
+  border-radius: 15px;
+  margin-bottom: 10px;
+}
+
+.feature-section .slogan {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--dark);
+  margin-bottom: 30px;
+}
+
+
+.feature-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 700px;
+  max-width: 95%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+
+.feature-content .text-section {
+  flex: 1;
+  padding-right: 20px;
+  text-align: left;
+}
+
+.feature-content .image-section {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--gray-bg);
+  border-radius: 10px;
+  height: 100%;
+}
+
+.feature-content .text-section,
+.feature-content .image-section {
+  transition: opacity 0.4s ease;
+  opacity: 1;
+}
+
+.feature-content.fade-out .text-section,
+.feature-content.fade-out .image-section {
+  opacity: 0;
+}
+
+
+.feature-content h3 {
+  color: var(--dark);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.feature-content p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--text-gray);
+}
+
+
+/* ======================
+   End of Feature Section (Benefits)
+   ====================== */
+
+
+/* ======================
+   Start of Smooth fade transition
+   ====================== */
+.feature-content .text-section,
+.feature-content .image-section {
+  transition: opacity 0.4s ease;
+  opacity: 1;
+}
+
+.feature-content.fade-out .text-section,
+.feature-content.fade-out .image-section {
+  opacity: 0;
+}
+
+.feature-buttons {
+  display: inline-flex;
+  border-radius: 999px;
+  background-color: var(--dark); /* dark pill background */
+  padding: 4px;
+  position: relative;
+  overflow: hidden;
+  width: fit-content;
+  margin: 0 auto 30px;
+}
+
+.feature-buttons button {
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 10px 30px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  position: relative;
+  z-index: 1;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: color 0.3s ease;
+}
+
+.feature-buttons button:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+
+.feature-buttons .active {
+  color: white;
+  z-index: 2;
+}
+
+.feature-buttons button:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* subtle highlight */
+}
+
+.feature-buttons::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: calc(100% / 3);
+  height: 100%;
+  background-color: var(--primary); /* light blue */
+  border-radius: 999px;
+  z-index: 0;
+  transition: transform 0.3s ease, width 0.3s ease;
+  transform: translateX(var(--slider-x, 0%));
+}
+
+.feature-buttons[data-count="3"]::before {
+  width: calc(100% / 3);
+}
+.feature-buttons[data-count="2"]::before {
+  width: calc(100% / 2);
+}
+
+
+
+/* ======================
+   End of Smooth fade transition
+   ====================== */
+
+
+/* ========================================================
+   Start of styling to make the site wrap properly on mobile
+   ======================================================== */
+
+   @media (max-width: 768px) {
+  /* Feature buttons (Benefits bar) */
+  .feature-buttons {
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 8px;
+    gap: 6px;
+    display: none !important;
+  }
+
+  .feature-buttons button {
+    flex: 1 1 100px;
+    padding: 8px 12px;
+    font-size: 0.85rem;
+  }
+
+  .feature-buttons::before {
+    display: none;
+  }
+
+  /* Feature section layout and image sizing */
+  .feature-content {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    align-items: center;
+    text-align: center;
+  }
+
+  .feature-content .text-section,
+  .feature-content .image-section {
+    padding: 10px 0;
+    text-align: center;
+  }
+
+  .feature-content .image-section img {
+    width: 100%;
+    height: auto;
+    max-width: 280px;
+  }
+
+  /* Email form responsiveness */
+  #emailSubscriptionForm {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  #emailInput,
+  #emailSubscriptionForm button {
+    width: 100% !important;
+  }
+}
+
+
+@keyframes scrollText {
+  from {
+    transform: translateX(0%);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ========================================================
+   End of styling to make the site wrap properly on mobile
+   ======================================================== */
+
+
+/* =====================
+   Start of FAQ Styling
+   ====================*/
+
+.faq-section {
+  background-color: var(--gray-bg);
+  padding: 60px 20px;
+}
+
+.faq-title {
+  color: var(--primary);
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 40px;
+  font-weight: 600;
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 18px 24px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  background-color: white;
+  color: var(--dark);
+  border: none;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  outline: none;
+  box-shadow: none;
+}
+
+.faq-question:hover {
+  background-color: #f9f9f9;
+}
+
+.faq-question:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0 24px;
+  background-color: #fcfcfc;
+  transition: max-height 0.4s ease, padding 0.3s ease;
+}
+
+.faq-answer p {
+  margin: 15px 0;
+  color: var(--text-gray);
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 300px;
+  padding-bottom: 20px;
+}
+
+.faq-question .arrow {
+  font-size: 1.4rem;
+  transition: transform 0.3s ease;
+  color: var(--primary);
+}
+
+.faq-item.active .faq-question .arrow {
+  transform: rotate(45deg); /* turn + into x */
+}
+
+/* ==================
+   End of FAQ Styling
+   ==================*/
