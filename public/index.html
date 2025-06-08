@@ -210,94 +210,100 @@
       </div>
     </div>
 
-<script>
-  const isMobile = window.innerWidth <= 768;
-
-  const desktopContent = {
-    efficiency: {
-      title: "Streamline your financial management with Savify’s AI-driven tools.",
-      text: "From automated savings to machine learning-powered insights, we simplify your finances and help you stay on track effortlessly.",
-      image: "images/Button1.png"
-    },
-    scalability: {
-      title: "Experience the future of fintech with Savify.",
-      text: "Our advanced features, like expense tracking, gamified savings, and data-driven recommendations, ensure a smarter and more rewarding financial journey.",
-      image: "images/Button2.png"
-    },
-    collaboration: {
-      title: "Achieve your financial goals with Savify’s powerful tools.",
-      text: "From round-up savings to goal-oriented planning and personalized insights, we empower you to grow your wealth strategically.",
-      image: "images/Button3.png"
-    }
-  };
-
-  const mobileContent = {
-    efficiency: {
-      title: "Streamline your finances with AI.",
-      text: "Auto-save, track spending, and get personalized tips—all simplified.",
-      image: "images/Button1.png"
-    },
-    scalability: {
-      title: "Fintech built for your future.",
-      text: "Track, gamify, and grow your savings smarter with Savify.",
-      image: "images/Button2.png"
-    },
-    collaboration: {
-      title: "Reach your financial goals.",
-      text: "Split bills, hit goals, and grow your wealth effortlessly.",
-      image: "images/Button3.png"
-    }
-  };
-
-  const content = isMobile ? mobileContent : desktopContent;
-
+    <script>
+window.addEventListener('load', () => {
+  const featureButtons = document.querySelector('.feature-buttons');
+  const buttons = document.querySelectorAll('.feature-buttons button');
   const titleElement = document.getElementById('title');
   const textElement = document.getElementById('text');
   const imageElement = document.getElementById('featureImage');
-  const buttons = document.querySelectorAll('.feature-buttons button');
+  const featureWindow = document.getElementById('featureWindow');
+  
+  function isMobile() {
+    return window.innerWidth <= 768; // Adjust breakpoint as needed
+  }
+
+  const content = {
+    efficiency: {
+      title: isMobile ? "Streamline your finances with AI." : "Streamline your financial management with Savify’s AI-driven tools.",
+      text: isMobile ? "Auto-save, track spending, and get personalized tips—all simplified." : "From automated savings to machine learning-powered insights, we simplify your finances and help you stay on track effortlessly.",
+      image: "images/Button1.png"
+    },
+    scalability: {
+      title: isMobile ? "Fintech built for your future." : "Experience the future of fintech with Savify.",
+      text: isMobile ? "Track, gamify, and grow your savings smarter with Savify." : "Our advanced features, like expense tracking, gamified savings, and data-driven recommendations, ensure a smarter and more rewarding financial journey.",
+      image: "images/Button2.png"
+    },
+    collaboration: {
+      title: isMobile ? "Reach your financial goals." : "Achieve your financial goals with Savify’s powerful tools.",
+      text: isMobile ? "Split bills, hit goals, and grow your wealth effortlessly." : "From round-up savings to goal-oriented planning and personalized insights, we empower you to grow your wealth strategically.",
+      image: "images/Button3.png"
+    }
+  };
+
+  const keys = Object.keys(content);
+  let currentIndex = 0;
 
   function updateContent(type) {
     const { title, text, image } = content[type];
-    titleElement.textContent = title;
-    textElement.textContent = text;
-    imageElement.src = image;
-  }
-
-  if (!isMobile) {
-    buttons.forEach(button => {
-      button.addEventListener('click', () => {
-        buttons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-        updateContent(button.id);
-      });
-    });
-  } else {
-    const buttonSection = document.querySelector('.feature-buttons');
-    if (buttonSection) buttonSection.remove();
-
-    const keys = Object.keys(content);
-    let currentIndex = 0;
-
-    function updateAutoContent() {
-      const { title, text, image } = content[keys[currentIndex]];
+    featureWindow.classList.add('fade-out');
+    setTimeout(() => {
       titleElement.textContent = title;
       textElement.textContent = text;
       imageElement.src = image;
-      currentIndex = (currentIndex + 1) % keys.length;
-    }
+      featureWindow.classList.remove('fade-out');
+    }, 400);
+  }
 
-    updateAutoContent();
-    setInterval(updateAutoContent, 6000);
+  function updateSlider(activeId) {
+    const buttonList = Array.from(featureButtons.querySelectorAll('button'));
+    const activeIndex = buttonList.findIndex(btn => btn.id === activeId);
+    featureButtons.dataset.active = activeId;
+    featureButtons.dataset.count = buttonList.length;
+    featureButtons.style.setProperty('--slider-x', `${activeIndex * 100}%`);
+  }
 
-    requestAnimationFrame(() => {
-  document.querySelectorAll('.mobile-feature-card').forEach(card => {
-    card.style.display = 'none';
-    void card.offsetHeight; // force reflow
-    card.style.display = 'block';
+  // Auto-rotation for all screen sizes
+  function updateAutoContent() {
+    const key = keys[currentIndex];
+    updateContent(key);
+
+    // Sync active button if visible
+    buttons.forEach(btn => btn.classList.remove('active'));
+    const activeBtn = document.getElementById(key);
+    if (activeBtn) activeBtn.classList.add('active');
+    updateSlider(key);
+
+    currentIndex = (currentIndex + 1) % keys.length;
+  }
+
+  updateAutoContent();
+  setInterval(updateAutoContent, 5000);
+
+  // 🔧 Force layout reflow on mobile to fix flex glitches
+  const section = document.querySelector('.mobile-feature-section');
+  if (window.innerWidth <= 768 && section) {
+    section.style.display = 'none';
+    void section.offsetWidth; // force reflow
+    section.style.display = 'flex';
+  }
+
+  // Allow manual button click (mostly useful on desktop)
+  buttons.forEach(button => {
+    button.addEventListener('click', () => {
+      buttons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+      updateContent(button.id);
+      updateSlider(button.id);
+      currentIndex = keys.indexOf(button.id);
+    });
   });
 });
 
-}
+window.addEventListener("resize", () => {
+  location.reload();
+});
+
 </script>
 
 
