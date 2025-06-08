@@ -259,7 +259,6 @@ footer {
     min-height: 340px; /* Tweak as needed */
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
   }
 
   .mobile-feature-card:hover {
