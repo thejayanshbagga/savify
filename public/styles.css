@@ -234,11 +234,11 @@ footer {
   }
 
   .side-scroll-section {
-    display: none;
+    display: none !important;
   }
 
   .mobile-feature-section {
-    display: flex;
+    display: flex !important;
     flex-direction: column;
     gap: 20px;
     padding: 40px 20px;

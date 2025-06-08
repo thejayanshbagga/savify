@@ -218,7 +218,10 @@ window.addEventListener('load', () => {
   const textElement = document.getElementById('text');
   const imageElement = document.getElementById('featureImage');
   const featureWindow = document.getElementById('featureWindow');
-  const isMobile = window.innerWidth <= 768;
+  
+  function isMobile() {
+    return window.innerWidth <= 768; // Adjust breakpoint as needed
+  }
 
   const content = {
     efficiency: {
@@ -277,6 +280,14 @@ window.addEventListener('load', () => {
   updateAutoContent();
   setInterval(updateAutoContent, 5000);
 
+  // 🔧 Force layout reflow on mobile to fix flex glitches
+  const section = document.querySelector('.mobile-feature-section');
+  if (window.innerWidth <= 768 && section) {
+    section.style.display = 'none';
+    void section.offsetWidth; // force reflow
+    section.style.display = 'flex';
+  }
+
   // Allow manual button click (mostly useful on desktop)
   buttons.forEach(button => {
     button.addEventListener('click', () => {
@@ -287,12 +298,12 @@ window.addEventListener('load', () => {
       currentIndex = keys.indexOf(button.id);
     });
   });
-
-  // Optional: Hide buttons on mobile
-  if (isMobile && featureButtons) {
-    featureButtons.style.display = "none";
-  }
 });
+
+window.addEventListener("resize", () => {
+  location.reload();
+});
+
 </script>
 
 
