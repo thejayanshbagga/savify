@@ -223,29 +223,32 @@ window.addEventListener('load', () => {
     return window.innerWidth <= 768; // Adjust breakpoint as needed
   }
 
-  const content = {
-    efficiency: {
-      title: isMobile ? "Streamline your finances with AI." : "Streamline your financial management with Savify’s AI-driven tools.",
-      text: isMobile ? "Auto-save, track spending, and get personalized tips—all simplified." : "From automated savings to machine learning-powered insights, we simplify your finances and help you stay on track effortlessly.",
-      image: "images/Button1.png"
-    },
-    scalability: {
-      title: isMobile ? "Fintech built for your future." : "Experience the future of fintech with Savify.",
-      text: isMobile ? "Track, gamify, and grow your savings smarter with Savify." : "Our advanced features, like expense tracking, gamified savings, and data-driven recommendations, ensure a smarter and more rewarding financial journey.",
-      image: "images/Button2.png"
-    },
-    collaboration: {
-      title: isMobile ? "Reach your financial goals." : "Achieve your financial goals with Savify’s powerful tools.",
-      text: isMobile ? "Split bills, hit goals, and grow your wealth effortlessly." : "From round-up savings to goal-oriented planning and personalized insights, we empower you to grow your wealth strategically.",
-      image: "images/Button3.png"
-    }
-  };
+  function getContent() {
+    const mobile = window.innerWidth <= 768;
+    return {
+      efficiency: {
+        title: mobile ? "Streamline your finances with AI." : "Streamline your financial management with Savify’s AI-driven tools.",
+        text: mobile ? "Auto-save, track spending, and get personalized tips—all simplified." : "From automated savings to machine learning-powered insights, we simplify your finances and help you stay on track effortlessly.",
+        image: "images/Button1.png"
+      },
+      scalability: {
+        title: mobile ? "Fintech built for your future." : "Experience the future of fintech with Savify.",
+        text: mobile ? "Track, gamify, and grow your savings smarter with Savify." : "Our advanced features, like expense tracking, gamified savings, and data-driven recommendations, ensure a smarter and more rewarding financial journey.",
+        image: "images/Button2.png"
+      },
+      collaboration: {
+        title: mobile ? "Reach your financial goals." : "Achieve your financial goals with Savify’s powerful tools.",
+        text: mobile ? "Split bills, hit goals, and grow your wealth effortlessly." : "From round-up savings to goal-oriented planning and personalized insights, we empower you to grow your wealth strategically.",
+        image: "images/Button3.png"
+      }
+    };
+  }
 
   const keys = Object.keys(content);
   let currentIndex = 0;
 
   function updateContent(type) {
-    const { title, text, image } = content[type];
+    const { title, text, image } = getContent()[type];
     featureWindow.classList.add('fade-out');
     setTimeout(() => {
       titleElement.textContent = title;
@@ -283,9 +286,11 @@ window.addEventListener('load', () => {
   // 🔧 Force layout reflow on mobile to fix flex glitches
   const section = document.querySelector('.mobile-feature-section');
   if (window.innerWidth <= 768 && section) {
-    section.style.display = 'none';
-    void section.offsetWidth; // force reflow
-    section.style.display = 'flex';
+    requestAnimationFrame(() => {
+      section.style.display = 'none';
+      void section.offsetWidth; // force reflow
+      section.style.display = 'flex';
+    });
   }
 
   // Allow manual button click (mostly useful on desktop)
@@ -300,9 +305,7 @@ window.addEventListener('load', () => {
   });
 });
 
-window.addEventListener("resize", () => {
-  location.reload();
-});
+
 
 </script>
 
