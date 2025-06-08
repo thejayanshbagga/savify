@@ -154,7 +154,7 @@
             <h2 style="color: #4A90E2; text-align: center; font-weight: 600; margin-bottom: 20px;">Savings Growth Calculator</h2>
             <div class="row flex-column flex-md-row">
                 <div class="col-md-6">
-                    <form id="savingsCalculator" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                    <form id="savingsCalculator" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); ">
                         <div class="form-group">
                             <label for="initialDeposit" style="color: #243B55; font-weight: 600;">Initial Deposit</label>
                             <input type="number" id="initialDeposit" class="form-control" placeholder="$100" value="100">
@@ -196,7 +196,9 @@
                     <div id="results" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
                         <h3 style="color: #4A90E2; font-weight: 600;">Potential Future Balance:</h3>
                         <p id="futureBalance" style="font-size: 2rem; color: #243B55; font-weight: 700; margin: 20px 0;">$0</p>
-                        <canvas id="savingsChart" width="400" height="250"></canvas>
+                        <div style="position: relative; height: 500px; width: 100%;">
+                          <canvas id="savingsChart" style="width: 100% !important; height: 100% !important;" width="" height=""></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -345,8 +347,10 @@ window.addEventListener('load', () => {
 
         document.getElementById('futureBalance').textContent = `$${yearlyData[yearlyData.length - 1]}`;
 
-        const ctx = document.getElementById('savingsChart').getContext('2d');
+        const canvas = document.getElementById('savingsChart');
+        const ctx = canvas.getContext('2d');
 
+          
         if (chartInstance) {
             chartInstance.destroy();
         }

@@ -167,7 +167,8 @@ footer {
 }
 
 #results canvas {
-  max-height: 150px;
+  height: 100% !important;
+  max-height: none !important;
 }
 
 .why-savify {
