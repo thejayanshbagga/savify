@@ -571,6 +571,7 @@ footer {
   overflow: hidden;
   width: fit-content;
   margin: 0 auto 30px;
+  display: none !important;
 }
 
 .feature-buttons button {
