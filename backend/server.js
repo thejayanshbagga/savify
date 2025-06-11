@@ -1,5 +1,5 @@
-require('dotenv').config(); // if not already
-require('./config/googleAuth');
+require('dotenv').config(); 
+require('./routes/googleAuth'); 
 
 // ✅ Load environment variables only in non-production environments
 if (process.env.NODE_ENV !== 'production') {
