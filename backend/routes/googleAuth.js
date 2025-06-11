@@ -1,26 +1,24 @@
+// backend/routes/googleAuth.js
 const express = require("express");
 const passport = require("passport");
-
 const router = express.Router();
 
-// ✅ Initiate Google OAuth login
+// Redirect to Google for login
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
-// ✅ Google OAuth callback
+// Callback after Google login
 router.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login.html" }),
-  (req, res) => {
-    // Redirect to the homepage or dashboard after successful login
-    res.redirect("/index.html");
-  }
+  passport.authenticate("google", {
+    failureRedirect: "/login.html",
+    successRedirect: "/", // or redirect to a dashboard if needed
+  })
 );
 
-// ✅ Logout route
+// Optional logout
 router.get("/logout", (req, res) => {
-  req.logout((err) => {
-    if (err) console.error("❌ Logout Error:", err);
-    res.redirect("/login.html"); // Redirect after logout
+  req.logout(() => {
+    res.redirect("/");
   });
 });
 
