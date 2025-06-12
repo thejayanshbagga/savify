@@ -443,25 +443,6 @@ document.getElementById("emailSubscriptionForm").addEventListener("submit", asyn
 });
 </script>
 
-<!-- <script>
-// ✅ Logout Handling (Keeps User on Home Page)
-window.onload = () => {
-    const authButton = document.getElementById("authButton");
-
-    if (localStorage.getItem("authToken")) {
-        authButton.textContent = "Logout";
-        authButton.href = "#";
-
-        authButton.addEventListener("click", () => {
-            localStorage.removeItem("authToken");
-            authButton.textContent = "Log In";
-            authButton.href = "login.html";
-        });
-    }
-};
-
-</script> -->
-
 <!-- FAQ Section -->
 <section class="faq-section"> 
   <h2 class="faq-title">Frequently Asked Questions</h2>
