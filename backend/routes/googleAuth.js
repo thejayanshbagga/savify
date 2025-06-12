@@ -3,6 +3,9 @@ const passport = require("passport");
 
 const router = express.Router();
 
+const jwt = require("jsonwebtoken");
+const JWT_SECRET = process.env.JWT_SECRET;
+
 // ✅ Initiate Google OAuth login
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
@@ -12,7 +15,8 @@ router.get(
   passport.authenticate("google", { failureRedirect: "/login.html" }),
   (req, res) => {
     // Redirect to the homepage or dashboard after successful login
-    res.redirect("/index.html");
+    const token = jwt.sign({ userId: req.user._id }, JWT_SECRET, { expiresIn: "1h" });
+    res.redirect("/index.html?token=${token");
   }
 );
 

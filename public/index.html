@@ -443,7 +443,7 @@ document.getElementById("emailSubscriptionForm").addEventListener("submit", asyn
 });
 </script>
 
-<script>
+<!-- <script>
 // ✅ Logout Handling (Keeps User on Home Page)
 window.onload = () => {
     const authButton = document.getElementById("authButton");
@@ -460,7 +460,7 @@ window.onload = () => {
     }
 };
 
-</script>
+</script> -->
 
 <!-- FAQ Section -->
 <section class="faq-section"> 
@@ -590,5 +590,27 @@ window.onload = () => {
   });
 </script>
 </footer>
+<script>
+window.addEventListener('DOMContentLoaded', () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get('token');
+
+  if (token) {
+    localStorage.setItem('authToken', token);
+    window.history.replaceState({}, document.title, window.location.pathname); // clean up URL
+  }
+
+  const authButton = document.getElementById("authButton");
+  if (localStorage.getItem("authToken")) {
+    authButton.textContent = "Logout";
+    authButton.href = "#";
+    authButton.addEventListener("click", () => {
+      localStorage.removeItem("authToken");
+      authButton.textContent = "Log In";
+      authButton.href = "login.html";
+    });
+  }
+});
+</script>
 </body>
 </html>
