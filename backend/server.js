@@ -1,3 +1,6 @@
+require('dotenv').config(); 
+require('./routes/googleAuth'); 
+
 // ✅ Load environment variables only in non-production environments
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
@@ -52,12 +55,31 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: callbackURL,
     },
-    (accessToken, refreshToken, profile, done) => {
-      console.log("🔑 Google profile:", profile);
-      return done(null, profile);
-    }
+    async (accessToken, refreshToken, profile, done) => {
+  try {
+    console.log("🔑 Google profile received:", profile);
+    return done(null, profile);
+  } catch (err) {
+    console.error("❌ Error in Google OAuth strategy:", err);
+    return done(err, null);
+  }
+}
   )
 );
+
+// ✅ Google callback route: redirects user to homepage after login
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/login",
+    session: true, // set false if using JWT instead
+  }),
+  (req, res) => {
+    console.log("✅ Google login successful:", req.user?.displayName);
+    res.redirect("https://savify.ca/"); // 👈 redirects to your main page
+  }
+);
+
 
 // ✅ MongoDB connection
 const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/savify";
