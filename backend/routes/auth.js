@@ -83,5 +83,13 @@ router.post("/signup", async (req, res) => {
         res.status(500).json({ message: "⚠️ Server error, try again later" });
     }
 });
+// ✅ Status Check Route for Frontend (Step 1)
+router.get("/status", (req, res) => {
+    const user = req.session?.user || null;
+    res.json({
+        loggedIn: !!user,
+        user: user,
+    });
+});
 
 module.exports = router;
