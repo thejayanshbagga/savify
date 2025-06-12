@@ -15,7 +15,642 @@
 <link rel="manifest" href="/site.webmanifest" />
 <meta name="apple-mobile-web-app-title" content="Savify" />
 
-    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+        background-color: #FAF3E0; /* Light Beige Background */
+        color: #243B55;
+        font-family: 'Poppins', sans-serif;
+        overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        html {
+        overflow-x: hidden; /* Also apply to HTML element */
+        max-width: 100%;     /* Prevent content from exceeding viewport */
+        }
+
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background-color: #4A90E2; /* Solid blue background */
+            color: white;
+            z-index: 10; /* Keeps the buttons and text above the image */
+            position: relative;
+        }
+
+        .header .logo {
+            font-size: 3rem;
+            font-weight: 900;
+            color: white;
+        }
+
+        .header a {
+            background-color: white;
+            color: #4A90E2;
+            font-size: 1.2rem;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            margin-left: 10px;
+        }
+
+        .header a:hover {
+            background-color: #4A90E2;
+            color: white;
+        }
+
+        .hero {
+            height: 60vh; /* Shorter height to reveal boxes below */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: url('images/homescreenpng.png') no-repeat center center / cover, linear-gradient(135deg, #4A90E2, #4A90E2);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        @keyframes fadeInText {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .side-scroll-section {
+            display: flex;
+            overflow-x: auto;
+            gap: 40px;
+            padding: 60px 20px;
+            background-color: #FFFFFF;
+            scrollbar-width: thin;
+            scrollbar-color: #4A90E2 #F2F4F8;
+        }
+
+        .side-scroll-section::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .side-scroll-section::-webkit-scrollbar-track {
+            background: #F2F4F8;
+        }
+
+        .side-scroll-section::-webkit-scrollbar-thumb {
+            background-color: #4A90E2;
+            border-radius: 10px;
+        }
+
+        .scroll-block {
+            flex: 0 0 600px; /* Blocks aligned horizontally */
+            background-color: #F2F4F8;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            overflow: hidden;
+        }
+
+        .scroll-block:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .scroll-block .hover-content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #FFFFFF;
+            padding: 20px;
+            border-radius: 10px;
+            overflow-y: auto; /* Vertical scrolling within blocks */
+            scrollbar-width: thin;
+            scrollbar-color: #4A90E2 #F2F4F8;
+            z-index: 10;
+        }
+
+        .scroll-block:hover .hover-content {
+            display: block;
+        }
+
+        .hover-content h5 {
+            color: #4A90E2;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        footer {
+            background-color: #243B55;
+            color: #FFFFFF;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        #results canvas {
+            max-height: 250px; /* Ensures the chart fits the container */
+        }
+
+        .why-savify {
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+            background-color: #F2F4F8;
+            padding: 20px 0;
+        }
+
+        .why-savify p {
+            font-size: 4rem;
+            font-weight: 600;
+            color: #D3D3D3;
+            display: inline-block;
+            letter-spacing: 10px;
+        }
+
+        body {
+            scroll-behavior: smooth;
+        }
+
+        @media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2rem !important;
+        line-height: 1.4;
+        padding: 0 10px;
+    }
+
+    header .d-flex.align-items-center img {
+        order: 2; /* move logo to the right */
+    }
+
+    header .d-flex.align-items-center h1 {
+        text-align: center;
+        flex: 1;
+        margin: 0;
+        font-size: 1.5rem;
+        order: 1; /* move text to the center */
+    }
+
+    header .d-flex.flex-wrap {
+        flex-direction: row;
+        justify-content: flex-end;
+    }
+
+    header .btn {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+        margin: 2px;
+    }
+
+    .feature-content {
+        flex-direction: column;
+        width: 90%;
+        height: auto;
+    }
+
+    .text-section, .image-section {
+        padding: 10px 0;
+    }
+
+    .image-section {
+        margin-top: 10px;
+    }
+
+    @media (max-width: 768px) {
+    header .d-flex.align-items-center h1 {
+        display: none; /* hides the Savify text next to logo */
+    }
+}
+
+@media (max-width: 768px) {
+    .side-scroll-section {
+        flex-direction: column;
+        gap: 20px;
+        overflow-x: hidden;
+    }
+
+    .scroll-block {
+        width: 100%;
+        max-width: 100%;
+        cursor: pointer;
+    }
+
+    .scroll-block .hover-content {
+        display: none;
+        position: static;
+        padding-top: 10px;
+        background: white;
+        box-shadow: none;
+    }
+
+    .scroll-block.active-card .hover-content {
+        display: block;
+    }
+
+    .scroll-block.active-card .short-description {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .side-scroll-section {
+        display: none; /* Hide original horizontal scroll section */
+    }
+
+    .mobile-feature-section {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 40px 20px;
+        background-color: #FFFFFF;
+    }
+
+    .mobile-feature-card {
+        background-color: #F2F4F8;
+        border-radius: 12px;
+        padding: 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        transition: transform 0.2s ease;
+    }
+
+    .mobile-feature-card:hover {
+        transform: scale(1.02);
+    }
+
+    .mobile-feature-card h4 {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #4A90E2;
+        margin-bottom: 10px;
+    }
+
+    .mobile-feature-card p {
+        font-size: 0.9rem;
+        color: #243B55;
+        line-height: 1.4;
+    }
+}
+.mobile-feature-card .detailed-info {
+  display: none;
+  margin-top: 10px;
+  text-align: left;
+  font-size: 0.85rem;
+}
+.mobile-feature-card.active-card .detailed-info {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .mobile-feature-section {
+    position: relative;
+    padding-left: 30px; /* space for the pipe */
+  }
+
+  .mobile-feature-card {
+    margin-bottom: 30px; /* space between cards */
+    position: relative;
+    background-color: #F2F4F8;
+    z-index: 1; /* ensures cards float above pipe */
+  }
+}
+
+.timeline {
+  position: relative;
+  margin: 0 auto;
+  padding: 2rem 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 100%;
+  background: linear-gradient(to bottom, #ccc, #333);
+}
+
+.timeline-item {
+  position: relative;
+  margin: 2rem 0;
+  padding-left: 2rem;
+}
+
+.timeline-item::after {
+  content: '';
+  position: absolute;
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20px;
+  height: 2px;
+  background: #333;
+}
+
+@media (max-width: 768px) {
+  .timeline-item {
+    margin: 3rem 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .mobile-feature-section {
+    position: relative;
+    padding-left: 60px; /* space for pipe */
+  }
+
+  .mobile-feature-card {
+    position: relative;
+    background-color: #F2F4F8;
+    margin-bottom: 50px;
+    padding: 20px;
+    border-radius: 12px;
+    z-index: 1;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+}
+
+@media (max-width: 768px) {
+  .calculator-section {
+    padding: 30px 15px;
+  }
+
+  .calculator-section h2 {
+    font-size: 1.5rem;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .calculator-section .row {
+    flex-direction: column;
+  }
+
+  #savingsCalculator {
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  #savingsCalculator .form-group {
+    margin-bottom: 15px;
+  }
+
+  #savingsCalculator label {
+    font-weight: 600;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #243B55;
+  }
+
+  #savingsCalculator input {
+    width: 100%;
+    font-size: 1rem;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+  }
+
+  #savingsCalculator button {
+    width: 100%;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #4A90E2;
+    color: white;
+    border: none;
+  }
+
+  #results {
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #fff;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  #results h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+
+  #futureBalance {
+    font-size: 2rem;
+    color: #4A90E2;
+    font-weight: 700;
+    margin: 15px 0;
+  }
+
+  canvas#savingsChart {
+    width: 100% !important;
+    height: auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .why-savify p {
+    font-size: 2rem; /* Smaller than default */
+    letter-spacing: 5px; /* Reduce spacing as well */
+  }
+}
+@media (max-width: 768px) {
+  .feature-content {
+    display: flex;
+    flex-direction: column !important; /* ✅ Force vertical layout */
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    width: 90% !important;
+    margin: 0 auto;
+    padding: 16px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    height: auto; /* ✅ Let it stretch naturally */
+  }
+
+  .text-section {
+    width: 100%;
+    padding-bottom: 10px;
+  }
+
+  .text-section h3 {
+    font-size: 1.1rem !important; /* ✅ Smaller heading */
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .text-section p {
+    font-size: 0.85rem !important; /* ✅ Smaller paragraph text */
+    line-height: 1.4;
+    color: #4A4A4A;
+  }
+
+  .image-section {
+  width: 100%;
+  aspect-ratio: 1 / 1; /* square shape */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F2F4F8;
+  border-radius: 10px;
+  padding: 0; /* Remove padding for edge-to-edge fit */
+  overflow: hidden;
+}
+
+.image-section img {
+  max-width: 120%; /* ✅ Enlarged but safe */
+  max-height: 120%;
+  object-fit: contain; /* ✅ Preserves full image */
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .image-section {
+    background-color: transparent !important; /* ❌ remove gray */
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+}
+
+.mobile-feature-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* ✅ This centers the cards */
+  gap: 20px;
+  padding: 40px 20px;
+  background-color: #FFFFFF;
+}
+
+.mobile-feature-card {
+  width: 90%; /* or 85% for tighter layout */
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.mobile-feature-card {
+  margin-bottom: 40px; /* ⬅️ Adds more vertical spacing */
+}
+
+}
+
+@media (max-width: 768px) {
+  #emailSubscriptionForm {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+
+  #emailSubscriptionForm input[type="email"] {
+    width: 100% !important;
+    margin-right: 0 !important;
+    margin-bottom: 10px !important; /* Add spacing between input and button */
+  }
+
+  #emailSubscriptionForm button {
+    width: 100% !important;
+  }
+}
+
+@media (min-width: 769px) {
+  footer {
+    padding: 80px 40px;
+    text-align: center;
+    position: relative;
+  }
+
+  footer .footer-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    text-align: left;
+  }
+
+  .footer-left,
+  .footer-center,
+  .footer-right {
+    flex: 1;
+    padding: 20px;
+  }
+
+  .footer-left img,
+  .footer-right img {
+    vertical-align: middle;
+    width: 28px;
+    margin-right: 10px;
+  }
+
+  .footer-left a,
+  .footer-right a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-block;
+    margin: 5px 0;
+  }
+
+  .footer-center {
+    text-align: center;
+  }
+
+  .footer-center p {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .footer-center img {
+    width: 130px;
+  }
+
+  .footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .frequency-options {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .frequency-options label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+}
+
+    </style>
 </head>
 <body>
     <header class="container-fluid py-3" style="background-color: #4A90E2; color: white;"> <!-- Fixed header for mobile optimization -->
@@ -124,37 +759,13 @@
       </div>
     </div>
   </div>
-
-  <!-- Feature Section -->
-
-  <section class="feature-section">
-  <div class="label">Benefits</div>
-  <div class="slogan">Simplify Your Finances, Savify Your Future.</div>
-
-  <div class="feature-buttons" data-active="efficiency" data-count="3">
-    <button id="efficiency" class="active">Efficiency</button>
-    <button id="scalability">Innovation</button>
-    <button id="collaboration">Growth</button>
-  </div>
-
-  <div id="featureWindow" class="feature-content">
-    <div class="text-section">
-      <h3 id="title">Streamline your financial management with Savify’s AI-driven tools.</h3>
-      <p id="text">From automated savings to machine learning-powered insights, we simplify your finances and help you stay on track effortlessly.</p>
-    </div>
-    <div class="image-section">
-      <img id="featureImage" src="images/Button1.png" alt="Efficiency Image">
-    </div>
-  </div>
-</section>
-
   
-    <section class="calculator-section" style="background-color: #F2F4F8; padding: 40px 0;">
+    <section class="calculator-section" style="background-color: #F2F4F8; padding: 40px;">
         <div class="container">
             <h2 style="color: #4A90E2; text-align: center; font-weight: 600; margin-bottom: 20px;">Savings Growth Calculator</h2>
             <div class="row flex-column flex-md-row">
                 <div class="col-md-6">
-                    <form id="savingsCalculator" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); ">
+                    <form id="savingsCalculator" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
                         <div class="form-group">
                             <label for="initialDeposit" style="color: #243B55; font-weight: 600;">Initial Deposit</label>
                             <input type="number" id="initialDeposit" class="form-control" placeholder="$100" value="100">
@@ -182,7 +793,7 @@
   </div>
 </div>
                         <div class="form-group">
-                            <label for="yearsToGrow" style="color: #243B55; font-weight: 600;">Years to Grow</label>
+                            <label for="s" style="color: #243B55; font-weight: 600;">Years to Grow</label>
                             <input type="number" id="yearsToGrow" class="form-control" placeholder="20" value="20">
                         </div>
                         <div class="form-group">
@@ -196,9 +807,7 @@
                     <div id="results" style="background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); text-align: center;">
                         <h3 style="color: #4A90E2; font-weight: 600;">Potential Future Balance:</h3>
                         <p id="futureBalance" style="font-size: 2rem; color: #243B55; font-weight: 700; margin: 20px 0;">$0</p>
-                        <div style="position: relative; height: 500px; width: 100%;">
-                          <canvas id="savingsChart" style="width: 100% !important; height: 100% !important;" width="" height=""></canvas>
-                        </div>
+                        <canvas id="savingsChart" width="400" height="250"></canvas>
                     </div>
                 </div>
             </div>
@@ -206,122 +815,401 @@
     </section>
 
     <div class="why-savify">
-      <div class="marquee">
-        <span>Why Savify – Why Savify – Why Savify – </span>
-        <span>Why Savify – Why Savify – Why Savify – </span>
-      </div>
+        <p>Why Savify - Why Savify - Why Savify - Why Savify - Why Savify - Why Savify -</p>
     </div>
 
-    <script>
-window.addEventListener('load', () => {
-  const featureButtons = document.querySelector('.feature-buttons');
-  const buttons = document.querySelectorAll('.feature-buttons button');
-  const titleElement = document.getElementById('title');
-  const textElement = document.getElementById('text');
-  const imageElement = document.getElementById('featureImage');
-  const featureWindow = document.getElementById('featureWindow');
-  
-  function isMobile() {
-    return window.innerWidth <= 768; // Adjust breakpoint as needed
+    <section class="feature-section">
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Savify Feature Window</title>
+    <style>
+        body {
+            background-color: #FAF3E0;
+            font-family: 'Poppins', sans-serif;
+            color: #243B55;
+            margin: 0;
+            padding: 0;
+        }
+
+        .feature-section {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #F2F4F8;
+        }
+
+        .label {
+            display: inline-block;
+            background-color: #4A90E2;
+            color: white;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 5px 15px;
+            border-radius: 15px;
+            margin-bottom: 10px;
+        }
+
+        .slogan {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #243B55;
+            margin-bottom: 30px;
+        }
+
+        .feature-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Added space between buttons */
+            background-color: #243B55;
+            border-radius: 30px;
+            overflow: hidden;
+            width: fit-content;
+            margin: 0 auto 30px;
+            position: relative;
+        }
+
+        @media (min-width: 769px) {
+  .feature-buttons {
+    display: flex !important;
   }
+}
 
-  function getContent() {
-    const mobile = window.innerWidth <= 768;
-    return {
-      efficiency: {
-        title: mobile ? "Streamline your finances with AI." : "Streamline your financial management with Savify’s AI-driven tools.",
-        text: mobile ? "Auto-save, track spending, and get personalized tips—all simplified." : "From automated savings to machine learning-powered insights, we simplify your finances and help you stay on track effortlessly.",
-        image: "images/Button1.png"
-      },
-      scalability: {
-        title: mobile ? "Fintech built for your future." : "Experience the future of fintech with Savify.",
-        text: mobile ? "Track, gamify, and grow your savings smarter with Savify." : "Our advanced features, like expense tracking, gamified savings, and data-driven recommendations, ensure a smarter and more rewarding financial journey.",
-        image: "images/Button2.png"
-      },
-      collaboration: {
-        title: mobile ? "Reach your financial goals." : "Achieve your financial goals with Savify’s powerful tools.",
-        text: mobile ? "Split bills, hit goals, and grow your wealth effortlessly." : "From round-up savings to goal-oriented planning and personalized insights, we empower you to grow your wealth strategically.",
-        image: "images/Button3.png"
-      }
-    };
+
+        @keyframes fadeInText {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in {
+    animation: fadeInText 1.5s ease-in-out;
+}
+
+
+        .feature-buttons button {
+            flex: 1;
+            background-color: #243B55;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border-radius: 30px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .feature-buttons button:hover {
+            background-color: #4A90E2;
+        }
+
+        .feature-buttons .active {
+            background-color: #4A90E2;
+            color: white;
+            border-radius: 30px;
+        }
+
+        .feature-content {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-between;
+            width: 700px;
+            height: 350px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .text-section {
+            flex: 1;
+            padding-right: 20px;
+        }
+
+        .image-section {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #F2F4F8;
+            border-radius: 10px;
+            height: 100%;
+        }
+
+        .feature-content h3 {
+            color: #243B55;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        .feature-content p {
+            text-align: left;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #4A4A4A;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        img {
+            max-width: 100%;
+            max-height: 100%;
+            border-radius: 10px;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .active-text {
+            display: block !important;
+        }
+        .email-subscription {
+    background-color: #4A90E2; /* Blue background */
+    padding: 40px 20px;
+    text-align: center;
+    color: white; /* White text */
+}
+
+.email-subscription h2,
+.email-subscription p {
+    color: white; /* Ensure header and paragraph text are white */
+}
+
+.email-subscription form input[type="email"] {
+    padding: 10px;
+    font-size: 1rem;
+    width: 70%;
+    border-radius: 5px;
+    border: none;
+    margin-right: 10px;
+    background-color: white;
+    color: #4A90E2; /* Blue text inside input */
+}
+
+.email-subscription form button {
+    padding: 10px 20px;
+    background-color: white;
+    color: #4A90E2;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.email-subscription form button:hover {
+    background-color: #4A90E2; /* Blue hover background */
+    color: white; /* White text on hover */
+}
+
+.email-registration-container {
+    margin-top: 150px; /* Adds more space above the registration window */
+    margin-bottom: 120px; /* Adds more space below the registration window */
+    background-color: #E0F7FA; /* Light blue shade for the window */
+}
+
+.custom-button {
+    background-color: #FFFFFF; /* Default white background */
+    color: #4A90E2; /* Blue text */
+    border: 2px solid #4A90E2; /* Blue border */
+    border-radius: 5px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.custom-button:hover {
+    background-color: #4A90E2; /* Blue background on hover */
+    color: #FFFFFF; /* White text on hover */
+    border: 2px solid #4A90E2; /* Ensure the border matches */
+}
+
+
+    </style>
+</head>
+<body>
+    <section class="feature-section">
+        <div class="label">Benefits</div>
+        <div class="slogan">Simplify Your Finances, Savify Your Future.</div>
+
+        <div class="feature-buttons">
+            <button id="efficiency" class="active">Efficiency</button>
+            <button id="scalability">Innovation</button>
+            <button id="collaboration">Growth</button>
+        </div>
+
+        <div id="featureWindow" class="feature-content">
+            <div class="text-section">
+                <h3 id="title" style="text-align: left;">Streamline your financial management with Savify’s AI-driven tools.</h3>
+                <p id="text">From automated savings to machine learning-powered insights, we simplify your finances and help you stay on track effortlessly.</p>
+            </div>
+            <div class="image-section">
+                <img id="featureImage" src="images/Button1.png" alt="Efficiency Image">
+            </div>
+        </div>
+    </section>
+<script>
+    const isMobile = window.innerWidth <= 768;
+
+const desktopContent = {
+  efficiency: {
+    title: "Streamline your financial management with Savify’s AI-driven tools.",
+    text: "From automated savings to machine learning-powered insights, we simplify your finances and help you stay on track effortlessly.",
+    image: "images/Button1.png"
+  },
+  scalability: {
+    title: "Experience the future of fintech with Savify.",
+    text: "Our advanced features, like expense tracking, gamified savings, and data-driven recommendations, ensure a smarter and more rewarding financial journey.",
+    image: "images/Button2.png"
+  },
+  collaboration: {
+    title: "Achieve your financial goals with Savify’s powerful tools.",
+    text: "From round-up savings to goal-oriented planning and personalized insights, we empower you to grow your wealth strategically.",
+    image: "images/Button3.png"
   }
+};
 
-  const keys = Object.keys(getContent());
-  let currentIndex = 0;
-
-  function updateContent(type) {
-    const { title, text, image } = getContent()[type];
-    featureWindow.classList.add('fade-out');
-    setTimeout(() => {
-      titleElement.textContent = title;
-      textElement.textContent = text;
-      imageElement.src = image;
-      featureWindow.classList.remove('fade-out');
-    }, 400);
+const mobileContent = {
+  efficiency: {
+    title: "Streamline your finances with AI.",
+    text: "Auto-save, track spending, and get personalized tips—all simplified.",
+    image: "images/Button1.png"
+  },
+  scalability: {
+    title: "Fintech built for your future.",
+    text: "Track, gamify, and grow your savings smarter with Savify.",
+    image: "images/Button2.png"
+  },
+  collaboration: {
+    title: "Reach your financial goals.",
+    text: "Split bills, hit goals, and grow your wealth effortlessly.",
+    image: "images/Button3.png"
   }
+};
 
-  function updateSlider(activeId) {
-    const buttonList = Array.from(featureButtons.querySelectorAll('button'));
-    const activeIndex = buttonList.findIndex(btn => btn.id === activeId);
-    featureButtons.dataset.active = activeId;
-    featureButtons.dataset.count = buttonList.length;
-    featureButtons.style.setProperty('--slider-x', `${activeIndex * 100}%`);
-  }
+const content = isMobile ? mobileContent : desktopContent;
 
-  // Auto-rotation for all screen sizes
-  function updateAutoContent() {
-    const key = keys[currentIndex];
-    updateContent(key);
+const titleElement = document.getElementById('title');
+const textElement = document.getElementById('text');
+const imageElement = document.getElementById('featureImage');
+const buttons = document.querySelectorAll('.feature-buttons button');
 
-    // Sync active button if visible
-    buttons.forEach(btn => btn.classList.remove('active'));
-    const activeBtn = document.getElementById(key);
-    if (activeBtn) activeBtn.classList.add('active');
-    updateSlider(key);
+function updateContent(type) {
+  const { title, text, image } = content[type];
+  titleElement.textContent = title;
+  textElement.textContent = text;
+  imageElement.src = image;
+}
 
-    currentIndex = (currentIndex + 1) % keys.length;
-  }
-
-  updateAutoContent();
-  setInterval(updateAutoContent, 5000);
-
-  // 🔧 Force layout reflow on mobile to fix flex glitches
-  const section = document.querySelector('.mobile-feature-section');
-  if (window.innerWidth <= 768 && section) {
-    requestAnimationFrame(() => {
-      section.style.display = 'none';
-      void section.offsetWidth; // force reflow
-      section.style.display = 'flex';
-    });
-  }
-
-  // Allow manual button click (mostly useful on desktop)
+if (!isMobile) {
   buttons.forEach(button => {
     button.addEventListener('click', () => {
       buttons.forEach(btn => btn.classList.remove('active'));
       button.classList.add('active');
       updateContent(button.id);
-      updateSlider(button.id);
-      currentIndex = keys.indexOf(button.id);
     });
   });
-});
+} else {
+  const buttonSection = document.querySelector('.feature-buttons');
+  if (buttonSection) buttonSection.remove();
 
+  const keys = Object.keys(content);
+  let currentIndex = 0;
 
+  function updateAutoContent() {
+    const { title, text, image } = content[keys[currentIndex]];
+    titleElement.textContent = title;
+    textElement.textContent = text;
+    imageElement.src = image;
+    currentIndex = (currentIndex + 1) % keys.length;
+  }
 
+  updateAutoContent();
+  setInterval(updateAutoContent, 6000);
+}
 </script>
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Only enable toggle on mobile
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.scroll-block').forEach(block => {
+                block.addEventListener('click', () => {
+                    block.classList.toggle('active');
+                });
+            });
+        }
+    </script>    
+    <script>
+        // Apply only on mobile
+        if (window.innerWidth <= 768) {
+            document.querySelectorAll('.scroll-block').forEach(block => {
+                block.addEventListener('click', () => {
+                    // Collapse all others
+                    document.querySelectorAll('.scroll-block').forEach(b => b.classList.remove('active-card'));
+                    // Expand current one
+                    block.classList.add('active-card');
+                });
+            });
+        }
+    </script>    
+    
+    <script>
+        const chartCanvas = document.getElementById("savingsChart");
+        if (chartCanvas) {
+          chartCanvas.style.width = "100%";
+          chartCanvas.style.maxWidth = "100%";
+        }
+      </script>
 
+</body>
+</html>
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    fetch("/api/auth/status")
+      .then((res) => res.json())
+      .then((data) => {
+        const loginBtn = document.getElementById("login-btn");
+        const logoutBtn = document.getElementById("logout-btn");
 
-
-
+        if (data.loggedIn) {
+          if (loginBtn) loginBtn.style.display = "none";
+          if (logoutBtn) logoutBtn.style.display = "inline-block";
+        } else {
+          if (loginBtn) loginBtn.style.display = "inline-block";
+          if (logoutBtn) logoutBtn.style.display = "none";
+        }
+      });
+  });
+</script>
 
 <script>
     document.addEventListener('scroll', () => {
-      const marquee = document.querySelector('.why-savify .marquee');
-      if (marquee) {
+        const strip = document.querySelector('.why-savify p');
         const scrollAmount = window.scrollY;
-        marquee.style.transform = `translateX(${scrollAmount * -0.5}px)`;
-      }
+        strip.style.transform = `translateX(${scrollAmount * -0.5}px)`;
     });
 
     let chartInstance;
@@ -347,10 +1235,8 @@ window.addEventListener('load', () => {
 
         document.getElementById('futureBalance').textContent = `$${yearlyData[yearlyData.length - 1]}`;
 
-        const canvas = document.getElementById('savingsChart');
-        const ctx = canvas.getContext('2d');
+        const ctx = document.getElementById('savingsChart').getContext('2d');
 
-          
         if (chartInstance) {
             chartInstance.destroy();
         }
@@ -427,8 +1313,6 @@ document.getElementById("emailSubscriptionForm").addEventListener("submit", asyn
             emailMessage.textContent = "✅ Successfully subscribed!";
             emailMessage.style.color = "green";
             emailInput.value = ""; // ✅ Clears input after successful submission
-
-            
             
             // ✅ Auto-hide success message after 3 seconds
             setTimeout(() => { emailMessage.textContent = ""; }, 3000);
@@ -444,65 +1328,47 @@ document.getElementById("emailSubscriptionForm").addEventListener("submit", asyn
 </script>
 
 <script>
-// ✅ Logout Handling (Keeps User on Home Page)
-window.onload = () => {
+window.onload = async () => {
     const authButton = document.getElementById("authButton");
 
+    // Step 1: Check token in localStorage (manual login)
     if (localStorage.getItem("authToken")) {
+        setLogoutUI();
+        return;
+    }
+
+    // Step 2: Fallback to check server session (Google OAuth)
+    try {
+        const response = await fetch("https://savify-n2pd.onrender.com/auth/status", {
+            credentials: "include", // Send cookies
+        });
+
+        const data = await response.json();
+
+        if (data.loggedIn) {
+            setLogoutUI();
+        }
+    } catch (err) {
+        console.error("Error checking auth status:", err);
+    }
+
+    function setLogoutUI() {
         authButton.textContent = "Logout";
         authButton.href = "#";
 
-        authButton.addEventListener("click", () => {
-            localStorage.removeItem("authToken");
+        authButton.addEventListener("click", async () => {
+            localStorage.removeItem("authToken"); // Remove manual token if present
+            await fetch("https://savify-n2pd.onrender.com/auth/logout", {
+                method: "GET",
+                credentials: "include"
+            });
             authButton.textContent = "Log In";
             authButton.href = "login.html";
         });
     }
 };
-
 </script>
 
-<!-- FAQ Section -->
-<section class="faq-section"> 
-  <h2 class="faq-title">Frequently Asked Questions</h2>
-  <div class="faq-container">
-    <div class="faq-item">
-      <button class="faq-question">Is my data safe with Savify?<span class="arrow">+</span></button>
-      <div class="faq-answer">
-        <p>Security is our top priority. We use bank-level encryption and follow strict privacy protocols to ensure your personal and financial information is fully protected. 
-          We never sell your data to third parties.</p>
-      </div>
-    </div>
-    
-    <div class="faq-item">
-      <button class="faq-question">How does the Savify Round-Up feature work?<span class="arrow">+</span></button>
-      <div class="faq-answer">
-        <p>With every transaction, Savify rounds your purchase to the nearest dollar and invests the spare change into your personalized savings or investment fund. Based on your chosen risk profile—whether conservative, balanced, or aggressive—we allocate your savings accordingly. We’re also in talks with Canadian brokerage partners to offer real investment options in the near future.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question">When will Savify features be available?<span class="arrow">+</span></button>
-      <div class="faq-answer">
-        <p>We’re currently developing the backend and preparing for a full app release. Savify is expected to launch in early September 2025. Registered users will receive email updates as features are rolled out. Both web and mobile platforms will become available gradually.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question">Does Savify offer educational content for financial beginners?<span class="arrow">+</span></button>
-      <div class="faq-answer">
-        <p>Absolutely. Savify features beginner-friendly videos, mini-lessons, and interactive tools focused on budgeting, saving, and investing. We also curate high-quality resources from trusted platforms to help users strengthen their financial knowledge and grow their money smartly.</p>
-      </div>
-    </div>
-
-    <div class="faq-item">
-      <button class="faq-question">Do I need to connect my bank account to use Savify?<span class="arrow">+</span></button>
-      <div class="faq-answer">
-        <p> Not right away. You can manually upload your bank’s expense reports, and Savify will use its algorithm to analyze and categorize your spending. Direct bank integrations with major Canadian financial institutions will be introduced soon to simplify the process.</p>
-      </div>
-    </div>
-  </div>
-</section>
 <footer style="background-color: #243B55; color: white; padding: 80px 20px; position: relative;">
 
 <!-- Desktop Footer (hidden on mobile) -->
@@ -527,12 +1393,12 @@ window.onload = () => {
 
   <!-- Slogan - Center Top -->
   <div style="text-align: center; position: absolute; top: 40px; left: 50%; transform: translateX(-50%);">
-    <p style="font-size: 1.5rem; font-weight: bold; margin: 0;">Simplify Your Finances.<br>Savify Your Future.</p>
+    <p style="font-size: 1.5rem; font-weight: bold; margin: 0;">Simplify Your Finances,<br>Savify Your Future.</p>
   </div>
 
   <!-- Logo - Center -->
   <div style="position: relative; margin: 120px auto 40px auto; text-align: center;">
-    <img src="/images/logo-savify-no-background.png" alt="Savify logo for financial savings platform" style="width: 150px;">
+    <img src="/images/logo-savify.png" alt="Savify Logo" style="width: 150px;">
   </div>
 
   <!-- Copyright -->
@@ -574,21 +1440,11 @@ window.onload = () => {
   </h2>
 
   <!-- Logo with spacing -->
-  <img src="/images/logo-savify-no-background.png" alt="Savify Logo" style="width: 80px; margin: 30px 0;">
+  <img src="/images/logo-savify.png" alt="Savify Logo" style="width: 80px; margin: 30px 0;">
 
   <!-- Copyright -->
   <div style="font-size: 0.9rem;">
     Copyright © 2025, Savify. All Rights Reserved.
   </div>
 </div>
-<script>
-  document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-      const item = button.closest('.faq-item');
-      item.classList.toggle('active');
-    });
-  });
-</script>
 </footer>
-</body>
-</html>
