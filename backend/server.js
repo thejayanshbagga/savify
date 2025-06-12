@@ -67,6 +67,20 @@ passport.use(
   )
 );
 
+// ✅ Google callback route: redirects user to homepage after login
+app.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    failureRedirect: "/login",
+    session: true, // set false if using JWT instead
+  }),
+  (req, res) => {
+    console.log("✅ Google login successful:", req.user?.displayName);
+    res.redirect("https://savify.ca/"); // 👈 redirects to your main page
+  }
+);
+
+
 // ✅ MongoDB connection
 const MONGO_URI = process.env.MONGO_URI || "mongodb://127.0.0.1:27017/savify";
 mongoose
