@@ -55,10 +55,15 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: callbackURL,
     },
-    (accessToken, refreshToken, profile, done) => {
-      console.log("🔑 Google profile:", profile);
-      return done(null, profile);
-    }
+    async (accessToken, refreshToken, profile, done) => {
+  try {
+    console.log("🔑 Google profile received:", profile);
+    return done(null, profile);
+  } catch (err) {
+    console.error("❌ Error in Google OAuth strategy:", err);
+    return done(err, null);
+  }
+}
   )
 );
 
