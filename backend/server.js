@@ -1,6 +1,3 @@
-require('dotenv').config(); 
-require('./routes/googleAuth'); 
-
 // ✅ Load environment variables only in non-production environments
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config();
@@ -12,6 +9,7 @@ const path = require("path");
 const passport = require("passport");
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const session = require("express-session"); 
+const jwt = require("jsonwebtoken");
 
 const googleAuthRoutes = require("./routes/googleAuth");
 const authRoutes = require("./routes/auth");
@@ -55,30 +53,25 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: callbackURL,
     },
-    async (accessToken, refreshToken, profile, done) => {
-  try {
-    console.log("🔑 Google profile received:", profile);
-    return done(null, profile);
-  } catch (err) {
-    console.error("❌ Error in Google OAuth strategy:", err);
-    return done(err, null);
-  }
-}
+    (accessToken, refreshToken, profile, done) => {
+      console.log("🔑 Google profile:", profile);
+      return done(null, profile);
+    }
   )
 );
 
-// ✅ Google callback route: redirects user to homepage after login
-app.get(
-  "/auth/google/callback",
-  passport.authenticate("google", {
-    failureRedirect: "/login",
-    session: true, // set false if using JWT instead
-  }),
-  (req, res) => {
-    console.log("✅ Google login successful:", req.user?.displayName);
-    res.redirect("https://savify.ca/"); // 👈 redirects to your main page
-  }
-);
+// ✅ Generate JWT after successful Google login
+function generateToken(profile) {
+  return jwt.sign(
+    {
+      id: profile.id,
+      name: profile.displayName,
+      email: profile.emails?.[0]?.value,
+    },
+    process.env.JWT_SECRET || "tempJWTSecret", // Replace in .env for production
+    { expiresIn: "1d" }
+  );
+}
 
 
 // ✅ MongoDB connection
