@@ -36,9 +36,20 @@
         </form>
 
         <div class="google-login">
-            <a href="http://localhost:5000/auth/google">
-                <button>Continue with Google</button>
-            </a>
+            <button id="googleLoginButton">Continue with Google</button>
+
+            <script>
+            const googleButton = document.getElementById("googleLoginButton");
+            const isLocalhost = window.location.hostname === "localhost";
+            const backendBaseURL = isLocalhost
+                ? "http://localhost:5000"
+                : "https://savify-n2pd.onrender.com"; // or your production backend URL
+
+            googleButton.addEventListener("click", () => {
+                window.location.href = `${backendBaseURL}/auth/google`;
+            });
+            </script>
+
         </div>        
 
         <p class="text-center" style="margin-top: 20px;">
