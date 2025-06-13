@@ -11,6 +11,7 @@
   "description": "",
   "dependencies": {
     "express-session": "^1.18.1",
+    "jsonwebtoken": "^9.0.2",
     "passport": "^0.7.0",
     "passport-google-oauth20": "^2.0.0",
     "react": "^19.0.0",

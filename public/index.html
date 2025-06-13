@@ -444,6 +444,17 @@ document.getElementById("emailSubscriptionForm").addEventListener("submit", asyn
 </script>
 
 <script>
+  // ✅ Store Google OAuth token from URL and clean up query string
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get("token");
+  if (token) {
+    localStorage.setItem("authToken", token);
+    window.history.replaceState({}, document.title, "index.html"); // remove ?token=... from URL
+  }
+</script>
+
+
+<script>
 // ✅ Logout Handling (Keeps User on Home Page)
 window.onload = () => {
     const authButton = document.getElementById("authButton");

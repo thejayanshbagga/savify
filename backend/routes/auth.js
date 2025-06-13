@@ -1,5 +1,3 @@
-console.log("✅ auth.js loaded");
-
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -84,15 +82,6 @@ router.post("/signup", async (req, res) => {
         console.error("❌ Signup Error:", error);
         res.status(500).json({ message: "⚠️ Server error, try again later" });
     }
-});
-// ✅ Status Check Route for Frontend (Step 1)
-router.get("/status", (req, res) => {
-    console.log("✅ /api/auth/status route hit");
-    const user = req.user || req.session?.passport?.user || null;
-    res.json({
-        loggedIn: !!user,
-        user: user,
-    });
 });
 
 module.exports = router;
