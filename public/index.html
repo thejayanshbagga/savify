@@ -458,6 +458,7 @@ document.getElementById("emailSubscriptionForm").addEventListener("submit", asyn
 // ✅ Logout Handling (Keeps User on Home Page)
 window.onload = () => {
     const authButton = document.getElementById("authButton");
+    const getStartedButton = document.querySelector('a[href="signup.html"]');
 
     if (localStorage.getItem("authToken")) {
         authButton.textContent = "Logout";
@@ -467,7 +468,11 @@ window.onload = () => {
             localStorage.removeItem("authToken");
             authButton.textContent = "Log In";
             authButton.href = "login.html";
+
+            if (getStartedButton) getStartedButton.style.display = "inline-block"; // Show "Get Started" button after logout
         });
+
+        if (getStartedButton) getStartedButton.style.display = "none"; // Hide "Get Started" button if logged in
     }
 };
 
