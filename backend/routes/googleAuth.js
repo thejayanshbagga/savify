@@ -28,12 +28,16 @@ router.get(
   (req, res) => {
     const token = generateToken(req.user);
 
-    const redirectURL =
+    const frontendBaseURL =
       process.env.NODE_ENV === "production"
-        ? `https://savify.ca/index.html?token=${token}`
-        : `http://localhost:5000/index.html?token=${token}`;
-
+    ? "https://savify.ca"
+    : "http://localhost:5000";
+    
+    
+    const redirectURL = `${frontendBaseURL}/index.html?token=${token}`;
     res.redirect(redirectURL);
+
+
   }
 );
 
