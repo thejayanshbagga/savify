@@ -76,7 +76,7 @@ app.get(
   }),
   (req, res) => {
     console.log("✅ Google login successful:", req.user?.displayName);
-    res.redirect("https://savify.ca/"); // 👈 redirects to your main page
+    res.redirect("https://savify.ca/?login=success"); // 👈 redirects to your main page
   }
 );
 
@@ -96,7 +96,7 @@ mongoose
 app.use(express.static(path.join(__dirname, "../public")));
 
 app.use(cors({
-  origin: 'https://savify.ca',
+  origin: ['https://savify.ca', 'http://localhost:5000'],
   credentials: true
 }));
 

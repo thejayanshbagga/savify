@@ -1,3 +1,5 @@
+console.log("✅ auth.js loaded");
+
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
@@ -85,7 +87,8 @@ router.post("/signup", async (req, res) => {
 });
 // ✅ Status Check Route for Frontend (Step 1)
 router.get("/status", (req, res) => {
-    const user = req.session?.user || null;
+    console.log("✅ /api/auth/status route hit");
+    const user = req.user || req.session?.passport?.user || null;
     res.json({
         loggedIn: !!user,
         user: user,
