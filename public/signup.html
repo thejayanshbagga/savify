@@ -88,12 +88,7 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password }),
                 });
-
-                alert("✅ Registered successfully!");
-                window.location.href = "index.html";
-                return;
-
-
+                
                 const data = await response.json();
 
                 if (response.ok) {
