@@ -14,6 +14,7 @@ const jwt = require("jsonwebtoken");
 const googleAuthRoutes = require("./routes/googleAuth");
 const authRoutes = require("./routes/auth");
 const emailRoutes = require("./routes/email");
+app.use("/api", emailRoutes);
 
 const app = express();
 app.use(express.json());
