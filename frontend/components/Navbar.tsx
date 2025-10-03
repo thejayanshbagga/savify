@@ -1,37 +1,33 @@
-// components/Navbar.tsx
-"use client";
-
-import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Navbar() {
   return (
-    <nav className="flex items-center justify-between px-6 py-4 bg-white shadow">
+    <nav className="flex items-center justify-between px-8 py-4 bg-gray-900/80 backdrop-blur-md fixed top-0 left-0 w-full z-50">
       {/* Logo */}
-      <Link href="/" className="text-2xl font-bold text-blue-600">
-        Savify
+      <Link href="/">
+        <div className="flex items-center space-x-2">
+          <Image
+            src="/logo-savify-no-background.png"
+            alt="Savify Logo"
+            width={40}
+            height={40}
+            className="object-contain"
+          />
+          <span className="text-white font-bold text-lg">Savify</span>
+        </div>
       </Link>
 
-      {/* Nav Links */}
-      <div className="flex items-center gap-4">
-        <Link href="/pricing" className="text-gray-700 hover:text-blue-600">
+      {/* Nav links */}
+      <div className="flex space-x-6">
+        <Link href="/pricing" className=" px-4 py-2 text-white hover:text-blue-400 transition">
           Pricing
         </Link>
-        <Link href="/about" className="text-gray-700 hover:text-blue-600">
-          About
-        </Link>
-
-        {/* Auth Buttons */}
-        <Link
-          href="/auth/login"
-          className="px-4 py-2 text-sm font-medium text-gray-700 border border-gray-300 rounded-md hover:bg-gray-100"
-        >
+        <Link href="/auth/login" className=" px-4 py-2 text-white hover:text-blue-400 transition">
           Log In
         </Link>
         <Link
-          href="/auth/signup"
-          className="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700"
-        >
+          href="/auth/signup" className=" px-4 py-2 text-white hover:text-blue-400 transition">
           Sign Up
         </Link>
       </div>

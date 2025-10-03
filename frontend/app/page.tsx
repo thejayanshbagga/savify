@@ -1,75 +1,105 @@
-import Image from "next/image";
+import React from "react";
+import Link from "next/link";
+import Navbar from "../components/Navbar"; 
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <main className="min-h-screen flex flex-col font-sans">
+    <div className="flex flex-col">
       {/* Navbar */}
-      <header className="flex justify-between items-center px-8 py-4 shadow-sm bg-white fixed w-full top-0 z-50">
-        <div className="flex items-center">
-          <Image
-            src="/logo-savify-no-background.png"
-            alt="Savify Logo"
-            width={40}
-            height={40}
-            className="mr-2"
-          />
-          <span className="text-2xl font-bold text-brand-blue">Savify</span>
+      <Navbar />
+      {/* Hero Section */}
+      <section className="relative bg-gradient-to-br from-blue-600 via-indigo-600 to-purple-700 text-white pt-32 px-6 md:px-12 lg:px-24">
+        <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <h1 className="text-5xl md:text-6xl font-extrabold leading-tight mb-6">
+              Save Smarter, <br /> Spend Better
+            </h1>
+            <p className="text-lg text-white/90 mb-8">
+              Savify helps you stay on top of your finances with smart insights,
+              goals, and tools that actually make saving fun.
+            </p>
+            <div className="flex gap-4">
+              <Link
+                href="/auth/signup"
+                className="px-6 py-3 rounded-full bg-white text-blue-700 font-semibold shadow-lg hover:shadow-xl transition"
+              >
+                Get Started
+              </Link>
+              <Link
+                href="/auth/login"
+                className="px-6 py-3 rounded-full border border-white text-white hover:bg-white/10 transition"
+              >
+                Log In
+              </Link>
+            </div>
+          </div>
+
+          {/* Placeholder for mockup/illustration */}
+          <div className="flex justify-center lg:justify-end">
+            <div className="w-80 h-80 bg-white/10 rounded-3xl backdrop-blur-lg shadow-2xl flex items-center justify-center">
+              <span className="text-white/70">[App Screenshot Here]</span>
+            </div>
+          </div>
         </div>
-        <nav className="hidden md:flex gap-6 text-brand-indigo">
-          <a href="#about" className="hover:text-brand-cyan">About Us</a>
-          <a href="#learn" className="hover:text-brand-cyan">Learn</a>
-          <a href="#prices" className="hover:text-brand-cyan">Prices</a>
-        </nav>
-        <div className="flex gap-4">
-          <button className="px-4 py-2 text-brand-indigo hover:text-brand-cyan">Login</button>
-          <button className="px-4 py-2 bg-brand-cyan text-black rounded-lg hover:bg-cyan-400">
-            Sign Up
-          </button>
+      </section>
+
+      {/* Features Section */}
+      <section className="py-24 px-6 md:px-12 lg:px-24 bg-gray-50">
+        <div className="max-w-6xl mx-auto text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">Why Savify?</h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            We make saving effortless by turning your financial goals into
+            achievable, fun, and rewarding experiences.
+          </p>
         </div>
-      </header>
 
-      {/* Hero */}
-      <section className="flex flex-col justify-center items-center text-center px-6 pt-40 pb-32 bg-brand-gradient text-white">
-        <h2 className="text-5xl md:text-7xl font-extrabold mb-6">
-          Simplify Your Finances
-        </h2>
-        <p className="text-2xl md:text-3xl mb-8">
-          Savify Your Future
-        </p>
-        <button className="px-8 py-4 bg-pastel-orange text-black rounded-lg text-lg font-semibold hover:opacity-90">
-          Get Started
-        </button>
+        <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+          <div className="p-8 rounded-3xl shadow-md bg-white hover:shadow-xl transition">
+            <h3 className="text-xl font-semibold mb-2">Smart Insights</h3>
+            <p className="text-gray-600">
+              Track spending and get personalized suggestions tailored to you.
+            </p>
+          </div>
+          <div className="p-8 rounded-3xl shadow-md bg-white hover:shadow-xl transition">
+            <h3 className="text-xl font-semibold mb-2">Goal Setting</h3>
+            <p className="text-gray-600">
+              Create savings goals and watch them grow with progress tracking.
+            </p>
+          </div>
+          <div className="p-8 rounded-3xl shadow-md bg-white hover:shadow-xl transition">
+            <h3 className="text-xl font-semibold mb-2">Rewards</h3>
+            <p className="text-gray-600">
+              Earn badges and streaks to keep motivation high along the way.
+            </p>
+          </div>
+        </div>
       </section>
 
-      {/* About Us */}
-      <section id="about" className="py-32 bg-lightgray-3 text-center">
-        <h3 className="text-4xl font-bold mb-6">About Us</h3>
-        <p className="max-w-3xl mx-auto text-grayblue-2 text-lg">
-          Savify helps students and young adults build better saving habits with
-          tools that are simple, engaging, and effective.
-        </p>
-      </section>
+      {/* CTA Section */}
+      <section className="py-20 px-6 md:px-12 lg:px-24 bg-gray-900 text-white text-center">
 
-      {/* Learn */}
-      <section id="learn" className="py-32 bg-white text-center">
-        <h3 className="text-4xl font-bold mb-6">Learn</h3>
-        <p className="max-w-3xl mx-auto text-grayblue-2 text-lg">
-          Financial literacy resources designed to make money management easier.
-        </p>
-      </section>
+        {/* Logo and Headline */}
+        <div className="flex flex-col items-center">
+          <img src="/logo-savify-no-background.png" alt="Savify Logo" className="h-12 mb-6" />
 
-      {/* Prices */}
-      <section id="prices" className="py-32 bg-lightgray-3 text-center">
-        <h3 className="text-4xl font-bold mb-6">Prices</h3>
-        <p className="max-w-3xl mx-auto text-grayblue-2 text-lg">
-          Simple, transparent pricing. No hidden fees.
-        </p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-10">
+            Start Saving Smarter Today
+          </h2>
+
+        {/* Call to Action Button */}
+        <Link
+          href="/auth/signup"
+          className="px-8 py-4 bg-white text-blue-700 font-semibold rounded-full shadow-lg hover:shadow-xl transition"
+        >
+          Join Savify
+        </Link>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="py-10 text-center text-lightgray-1 text-sm">
-        © {new Date().getFullYear()} Savify. All rights reserved.
+      <footer className="py-8 px-6 md:px-12 lg:px-24 bg-gray-900 text-gray-400 text-center">
+        <p>© {new Date().getFullYear()} Savify. All rights reserved.</p>
       </footer>
-    </main>
+    </div>
   );
 }

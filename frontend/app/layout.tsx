@@ -3,14 +3,14 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 
 const poppins = Poppins({
-  weight: ["400", "600", "700"],
   subsets: ["latin"],
-  variable: "--font-sans",
+  variable: "--font-poppins",
+  weight: "400"
 });
 
 export const metadata: Metadata = {
   title: "Savify",
-  description: "Simplify Your Finances, Savify Your Future",
+  description: "Save smarter, spend better.",
 };
 
 export default function RootLayout({
@@ -20,7 +20,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${poppins.variable} font-sans antialiased`}>
+      <body
+        className={`${poppins.variable} font-sans antialiased`}
+        suppressHydrationWarning
+      >
         {children}
       </body>
     </html>
