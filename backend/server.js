@@ -14,6 +14,7 @@ const jwt = require("jsonwebtoken");
 const googleAuthRoutes = require("./routes/googleAuth");
 const authRoutes = require("./routes/auth");
 const emailRoutes = require("./routes/email");
+app.use("/api", emailRoutes);
 
 const app = express();
 app.use(express.json());
@@ -89,7 +90,12 @@ mongoose
 app.use(express.static(path.join(__dirname, "../public")));
 
 app.use(cors({
-  origin: 'https://savify.ca',
+  origin: [
+    'https://savify.ca',
+    'https://savify-n2pd.onrender.com', // allow backend direct calls
+    'http://localhost:3000',            // for React dev testing
+    'http://127.0.0.1:5500'             // for static HTML testing
+  ],
   credentials: true
 }));
 
