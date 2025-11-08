@@ -35,16 +35,27 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Placeholder for mockup/illustration */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="w-80 h-80 bg-white/10 rounded-3xl backdrop-blur-lg shadow-2xl flex items-center justify-center">
-              <img
-                src="/logo-savify-no-background.png"
-                alt="Savify Logo"
-                className="h-32 object-contain"
-              />
-            </div>
+        {/* Right: Phone mockup */}
+        <div className="relative flex justify-center lg:justify-end">
+          <div className="relative w-96 h-[620px] sm:w-[28rem] sm:h-[680px] lg:w-[32rem] lg:h-[720px]">
+            {/* App screen overlay (optional for future) */}
+            {/* <img
+              src="/images/savify-app-preview.png"
+              alt="Savify App Preview"
+              className="absolute top-[7%] left-[7%] w-[86%] h-[86%] rounded-[32px] object-cover z-10"
+            /> */}
+
+            {/* Transparent phone frame */}
+            <img
+              src="/images/phone-mockup.png"
+              alt="Phone Mockup"
+              className="absolute inset-0 w-full h-full object-contain drop-shadow-[0_10px_60px_rgba(0,0,0,0.6)] animate-float opacity-95"
+            />
+
+            {/* Gradient glow */}
+            <div className="absolute -inset-10 bg-gradient-to-tr from-[#4adeed]/40 to-[#120052]/40 blur-3xl rounded-full -z-10"></div>
           </div>
+        </div>
         </div>
       </section>
 
