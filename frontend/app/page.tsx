@@ -92,7 +92,7 @@ const FeatureSlideshow = () => {
 };
 
 // Side Scroll Features Component
-const SideScrollFeatures = () => {
+const SideScrollFeatures = () => { // get rid of and move up to the earlier buttons
   const features = [
     {
       title: "Savify Save",
@@ -385,7 +385,7 @@ const SavingsCalculator = () => {
 };
 
 // Why Savify Marquee
-const WhySavifyMarquee = () => {
+const WhySavifyMarquee = () => { // make it unlimited and not cut off or add etf prices
   return (
     <div className="overflow-hidden bg-gray-50 py-8">
       <div className="whitespace-nowrap animate-marquee">
@@ -574,15 +574,15 @@ export default function HomePage() {
         <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
           {[
             {
-              title: "Smart Insights",
+              title: "Smart Insights", // change up to Savify Save and add the scroll feature
               text: "Track spending and get personalized suggestions tailored to you.",
             },
             {
-              title: "Goal Setting",
+              title: "Goal Setting", // change up to Savify Split and add the scroll feature
               text: "Create savings goals and watch them grow with progress tracking.",
             },
             {
-              title: "Rewards",
+              title: "Rewards", // change up to Savify Score and add the scroll feature
               text: "Earn badges and streaks to keep motivation high along the way.",
             },
           ].map((feature, i) => (
@@ -637,11 +637,11 @@ export default function HomePage() {
 
           {/* Email - Right Top */}
           <div className="absolute top-10 right-20 text-right">
-            <a href="mailto:business@savify.com" className="inline-block mr-2">
+            <a href="mailto:jbagga3@uwo.ca" className="inline-block mr-2">
               <img src="/images/icon-email.png" alt="Email Icon" className="w-8 h-8 inline-block" />
             </a>
-            <a href="mailto:business@savify.com" className="text-white text-lg font-bold no-underline hover:text-blue-200 transition">
-              business@savify.com
+            <a href="mailto:jbagga3@uwo.ca" className="text-white text-lg font-bold no-underline hover:text-blue-200 transition">
+              jbagga3@uwo.ca
             </a>
           </div>
 
