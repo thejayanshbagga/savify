@@ -101,24 +101,22 @@ const FeatureSlideshow = () => {
 
 // Marquee
 const WhySavifyMarquee = () => {
+  const text = "Why Savify • Why Savify • Why Savify • Why Savify • Why Savify • ";
+
   return (
     <div className="overflow-hidden bg-gray-50 py-10">
       <div className="marquee">
         <div className="track">
-          <span>
-            Why Savify • Why Savify • Why Savify • Why Savify • Why Savify •
-          </span>
-          <span>
-            Why Savify • Why Savify • Why Savify • Why Savify • Why Savify •
-          </span>
+          <span className="marquee-text">{text}</span>
+          <span className="marquee-text">{text}</span>
         </div>
       </div>
 
       <style jsx>{`
         .marquee {
-          position: relative;
           width: 100%;
           overflow: hidden;
+          position: relative;
         }
 
         .track {
@@ -127,11 +125,11 @@ const WhySavifyMarquee = () => {
           animation: scroll 20s linear infinite;
         }
 
-        .track span {
+        .marquee-text {
           font-size: 3rem;
           font-weight: 600;
           color: #6b7280;
-          padding-right: 4rem;
+          padding-right: 2rem;
         }
 
         @keyframes scroll {
@@ -146,6 +144,8 @@ const WhySavifyMarquee = () => {
     </div>
   );
 };
+
+
 
 
 
