@@ -27,13 +27,13 @@ export default function Features() {
         </p>
       </div>
 
-      <div className="grid md:grid-cols-3 gap-12 max-w-6xl mx-auto">
+      <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
         {items.map((f, i) => (
           <div
             key={i}
-            className="p-8 rounded-3xl bg-white/10 backdrop-blur-md shadow-lg hover:shadow-xl transition max-h-48 overflow-hidden hover:overflow-y-auto"
+            className="p-8 rounded-3xl bg-white/10 backdrop-blur-md shadow-lg hover:shadow-xl transition ease-in-out duration-200"
           >
-            <h3 className="text-xl font-semibold mb-2">{f.title}</h3>
+            <h3 className="text-xl font-semibold mb-3">{f.title}</h3>
             <p className="text-gray-200">{f.text}</p>
           </div>
         ))}

@@ -102,18 +102,51 @@ const FeatureSlideshow = () => {
 // Marquee
 const WhySavifyMarquee = () => {
   return (
-    <div className="overflow-hidden bg-gray-50 py-8">
-      <div className="flex whitespace-nowrap animate-marquee">
-        <span className="text-6xl font-semibold text-gray-300 tracking-widest px-8">
-          Why Savify • Why Savify • Why Savify • Why Savify • Why Savify •
-        </span>
-        <span className="text-6xl font-semibold text-gray-300 tracking-widest px-8">
-          Why Savify • Why Savify • Why Savify • Why Savify • Why Savify •
-        </span>
+    <div className="overflow-hidden bg-gray-50 py-10">
+      <div className="marquee">
+        <div className="track">
+          <span>
+            Why Savify • Why Savify • Why Savify • Why Savify • Why Savify •
+          </span>
+          <span>
+            Why Savify • Why Savify • Why Savify • Why Savify • Why Savify •
+          </span>
+        </div>
       </div>
+
+      <style jsx>{`
+        .marquee {
+          position: relative;
+          width: 100%;
+          overflow: hidden;
+        }
+
+        .track {
+          display: flex;
+          white-space: nowrap;
+          animation: scroll 20s linear infinite;
+        }
+
+        .track span {
+          font-size: 3rem;
+          font-weight: 600;
+          color: #6b7280;
+          padding-right: 4rem;
+        }
+
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-50%);
+          }
+        }
+      `}</style>
     </div>
   );
 };
+
 
 
 // Savings Calculator
@@ -278,22 +311,27 @@ const FAQ = () => {
     {
       question: "Is my data safe with Savify?",
       answer:
-        "Security is our top priority. We use bank-level encryption and follow strict privacy standards. Your data is never sold.",
+        "Security is our top priority. We use bank-level encryption and follow strict privacy protocols to ensure your personal and financial information is fully protected. We never sell your data to third parties.",
     },
     {
-      question: "How does Round-Up Savings work?",
+      question: "How does the Savify Round-Up feature work?",
       answer:
-        "Savify rounds each purchase to the nearest dollar and saves the difference toward your chosen goal.",
+        "With every transaction, Savify rounds your purchase to the nearest dollar and invests the spare change into your personalized savings or investment fund. Based on your chosen risk profile—whether conservative, balanced, or aggressive—we allocate your savings accordingly. We’re also in talks with Canadian brokerage partners to offer real investment options in the near future.",
     },
     {
-      question: "When is the app launching?",
+      question: "When will Savify features be available?",
       answer:
-        "Savify is expected to launch in September 2025. Registered users will get updates when features roll out.",
+        "We’re currently developing the backend and preparing for a full app release. Savify is expected to launch in early September 2025. Registered users will receive email updates as features are rolled out. Both web and mobile platforms will become available gradually.",
     },
     {
-      question: "Do I need to connect my bank?",
+      question: "Does Savify offer educational content for financial beginners?",
       answer:
-        "Not immediately. You can upload expense reports manually until bank integrations are released.",
+        "Absolutely. Savify features beginner-friendly videos, mini-lessons, and interactive tools focused on budgeting, saving, and investing. We also curate high-quality resources from trusted platforms to help users strengthen their financial knowledge and grow their money smartly."
+    },
+    {
+      question: "Do I need to connect my bank to use Savify?",
+      answer:
+        "Not right away. You can manually upload your bank’s expense reports, and Savify will use its algorithm to analyze and categorize your spending. Direct bank integrations with major Canadian financial institutions will be introduced soon to simplify the process",
     },
   ];
 

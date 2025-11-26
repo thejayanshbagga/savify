@@ -20,9 +20,6 @@ export default function Navbar() {
 
       {/* Nav links */}
       <div className="flex space-x-6">
-        <Link href="/pricing" className=" px-4 py-2 text-white hover:text-blue-400 transition">
-          Pricing
-        </Link>
         <Link href="/auth/login" className=" px-4 py-2 text-white hover:text-blue-400 transition">
           Log In
         </Link>
