@@ -136,8 +136,9 @@ export default function Intro() {
 
     const phoneYStart = isMobile ? height * 0.5 : height * 0.6;
 
-    // Dynamic section height - shorter on mobile since less animation content
-    const sectionHeight = isMobile ? "400vh" : isTablet ? "500vh" : "600vh";
+    // On mobile: no scroll animation, just a single viewport hero
+    // On tablet/desktop: tall section for scroll-driven animation
+    const sectionHeight = isMobile ? "100vh" : isTablet ? "500vh" : "600vh";
 
     /* ---------------- ART BACKGROUND ---------------- */
     const artScale = useTransform(scrollYProgress, [0, 0.6], [1, artScaleEnd]);
@@ -244,6 +245,73 @@ export default function Intro() {
 
     // Always render same structure to prevent hydration mismatch
     // Use fallback values for SSR, real values after mount
+    // Mobile: static hero with no scroll animation
+    if (isMobile && hasMounted) {
+        return (
+            <section className="relative h-screen overflow-hidden text-white">
+                {/* GRADIENT BACKGROUND */}
+                <div className="absolute inset-0 z-10 bg-gradient-to-br from-brand-charcoal via-brand-navy to-brand-blue" />
+
+                {/* FLOATING PARTICLES */}
+                <div className="absolute inset-0 z-10">
+                    <FloatingParticles count={40} />
+                </div>
+
+                {/* Decorative glow effects */}
+                <div className="absolute top-0 left-0 w-48 h-48 sm:w-64 sm:h-64 bg-brand-lightblue/10 rounded-full blur-3xl z-10" />
+                <div className="absolute bottom-0 right-0 w-48 h-48 sm:w-64 sm:h-64 bg-brand-blue/10 rounded-full blur-3xl z-10" />
+
+                {/* CONTENT */}
+                <div className="relative z-20 h-full flex flex-col items-center justify-center">
+                    {/* TITLE */}
+                    <div className="flex items-center px-4">
+                        <Image
+                            src="/images/full-logo-no-bg.png"
+                            alt="Savify"
+                            width={450}
+                            height={750}
+                            priority
+                            className="mx-auto w-[220px] sm:w-[280px] h-auto"
+                        />
+                    </div>
+
+                    {/* SLOGANS */}
+                    <div className="mt-6 text-center px-4 w-full max-w-4xl">
+                        <p className="text-lg xs:text-xl sm:text-2xl font-semibold tracking-tight text-white">
+                            Simplify your finances
+                        </p>
+                        <p className="mt-1 text-xs xs:text-sm sm:text-base font-medium tracking-wide text-white/65">
+                            Savify your future
+                        </p>
+                    </div>
+
+                    {/* SCROLL INDICATOR BUTTON */}
+                    <button
+                        onClick={handleScrollClick}
+                        className="
+                            absolute bottom-4 xs:bottom-5 sm:bottom-6
+                            left-1/2 -translate-x-1/2
+                            z-40
+                            p-2 sm:p-3
+                            rounded-full
+                            bg-white/10 backdrop-blur-sm
+                            border border-white/20
+                            hover:bg-white/20
+                            active:bg-white/30
+                            transition-all
+                            animate-bounce
+                            touch-manipulation
+                        "
+                        aria-label="Scroll to next section"
+                    >
+                        <ChevronDown className="w-4 h-4 xs:w-5 xs:h-5 sm:w-6 sm:h-6 text-white" />
+                    </button>
+                </div>
+            </section>
+        );
+    }
+
+    // Tablet & Desktop: full scroll-driven animation
     return (
         <section
             ref={containerRef}
@@ -333,10 +401,9 @@ export default function Intro() {
                         </motion.p>
                     </div>
 
-                    {/* PHONE - NOW VISIBLE ON ALL DEVICES with responsive animations */}
-                    {/* Mobile & Tablet: Use a centering wrapper to avoid transform conflicts */}
-                    {(isMobile || isTablet) ? (
-                        <div className={`absolute inset-x-0 ${isMobile ? 'top-[40%]' : 'top-[38%]'} flex justify-center z-30`}>
+                    {/* PHONE - Tablet & Desktop only */}
+                    {isTablet ? (
+                        <div className="absolute inset-x-0 top-[38%] flex justify-center z-30">
                             <motion.div
                                 style={{
                                     y: phoneY,
