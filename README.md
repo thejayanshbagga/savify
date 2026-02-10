@@ -77,3 +77,5 @@ Status: Check DNS Propagation
 🔗 Instagram: @savify.official
 
 🙌 Contributions & Issues? Feel free to open a GitHub issue or submit a pull request.
+
+Update: code revamp of the official website by Vaishnavi Gudimella and (name of the other coder).

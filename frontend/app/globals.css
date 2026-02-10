@@ -8,5 +8,16 @@ html {
 }
 
 body {
-  @apply bg-white text-base-black font-sans;
+  @apply bg-brand-navy text-base-black font-sans;
+  overscroll-behavior-y: none; /* Prevent mobile scroll bounce during animation */
+}
+
+/* Phone zoom performance optimizations */
+.will-change-transform {
+  will-change: transform;
+}
+
+/* Isolate paint operations for clip-path */
+.portal-content {
+  contain: paint;
 }

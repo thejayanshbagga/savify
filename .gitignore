@@ -29,6 +29,9 @@ out/
 .env.development
 .env.production
 
+# 🔴 CLAUDE LOCAL CONFIGURATION
+CLAUDE.local.md
+
 # 🔴 VERCEL CONFIG (Auto-generated)
 .vercel/
 
@@ -38,3 +41,5 @@ coverage/
 .parcel-cache/
 .nuxt/
 .serverless/
+
+.idea/
