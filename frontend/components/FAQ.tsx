@@ -21,7 +21,7 @@ export default function FAQ() {
     {
       question: "When will Savify features be available?",
       answer:
-          "We're currently developing the backend and preparing for a full app release. Savify is expected to launch in early September 2025. Registered users will receive email updates as features are rolled out. Both web and mobile platforms will become available gradually.",
+          "We're currently developing the backend and preparing for a full app release. Savify is expected to launch in early September 2026. Registered users will receive email updates as features are rolled out. Both web and mobile platforms will become available gradually.",
     },
     {
       question: "Does Savify offer educational content for financial beginners?",
